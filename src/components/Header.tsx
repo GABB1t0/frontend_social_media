@@ -1,0 +1,79 @@
+import HomeIcon from '@mui/icons-material/Home'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import SearchIcon from '@mui/icons-material/Search'
+import { IconButton } from '@mui/material'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
+import { useState } from 'react'
+import { DropdownMenu } from './ui/DropdownMenu'
+import { Link } from 'react-router-dom'
+import { Notification } from './notification/Notification'
+
+
+
+export const Header = () => {
+  const [search, setSearch] = useState(false)
+
+  const searchInputClass = search ? 'flex w-screen px-2 justify-between border-b-2  items-center bg-white border-b-orange-400 absolute top-16 z-50' : 'hidden'
+
+  const handleClik = () => {
+    setSearch(!search)
+    console.log(search)
+  }
+
+  return (
+    <>
+    <header className="flex h-16 justify-center items-center bg-[#fcf2e8] shadow-sm fixed z-50 top-0 left-0 right-0">
+
+    <div className='grid grid-cols-3 w-full gap-2 items-center relative sm:w-11/12 xl:w-4/5'>
+      <img className='size-16' src="../../src/assets/img/Free_Sample_By_Wix.jpg" alt="" />
+
+      <ul className="flex gap-8 sm:gap-16 justify-self-center">
+        <li>
+          <Link to='/Home'>
+            <IconButton color='inherit'>
+                <HomeIcon />
+            </IconButton>
+          </Link>
+        </li>
+
+          
+        <li>
+          <Notification/>
+        </li>
+        <li className='lg:hidden' onClick={handleClik} >
+          <IconButton color='inherit'>
+            <SearchIcon/>
+          </IconButton>
+        </li>
+        <li className='hidden lg:flex'>
+          
+          <Link to='/SavePosts'>
+            <IconButton color='inherit'>
+                <BookmarkIcon/>
+            </IconButton>
+          </Link>
+        </li>
+      </ul>
+
+      <div className='flex justify-end items-center gap-2'>
+        <form id='searchID' className='hidden border-b-2  items-center  border-b-orange-400 lg:flex'>
+          <input id='input' className='bg-transparent h-full focus:outline-none' type="text" placeholder="Search"/>
+          <IconButton >
+            <SearchIcon/>
+          </IconButton>
+        </form>
+
+        <DropdownMenu/>
+      </div>
+
+    </div>
+  </header>
+  <form id='searchID2' className= {searchInputClass}>
+    <input id='input2' className='bg-transparent h-full w-full focus:outline-none' type="text" placeholder="Search"/>
+    <IconButton >
+      <SearchIcon/>
+    </IconButton>
+  </form>
+  </>
+  )
+}

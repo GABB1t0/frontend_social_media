@@ -1,0 +1,11 @@
+.container{
+    width: 100%;
+    margin-top: 60px;
+}
+.home{
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
