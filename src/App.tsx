@@ -11,10 +11,6 @@ import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 
-
-
-
-
 function App () {
   return (
     <>
@@ -22,26 +18,14 @@ function App () {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
-
-          <Route
-            path="In"
-            element={
-              <>
-                <Header />
-                <Routes>
-                  
-                  <Route path="/Home" element={<Home />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/profile/:section" element={<Profile />} />
-                  <Route path="/Profile-Pages/Friends" element={<Friends />} />
-                  <Route path="/Profile-Pages/About" element={<About />} />
-                  <Route path="/Profile-Pages/Photos" element={<Photos />} />
-                  <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-                  <Route path="/SavePosts" element={<SavePost />} />
-                </Routes>
-              </>
-            }
-          />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:section" element={<Profile />} />
+          <Route path="/Profile-Pages/Friends" element={<Friends />} />
+          <Route path="/Profile-Pages/About" element={<About />} />
+          <Route path="/Profile-Pages/Photos" element={<Photos />} />
+          <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+          <Route path="/SavePosts" element={<SavePost />} />
         </Routes>
       </div>
     </>
