@@ -23,8 +23,9 @@ export const Login: React.FC = () => {
     const cookie = new Cookies();
     //Guardar el token en la cookie
     cookie.set('cookie_api_social_media_session', token, { maxAge : 10 }); 
-    navigate('/profile')
-  
+    navigate('/home')
+    
+
   }
   
   return (

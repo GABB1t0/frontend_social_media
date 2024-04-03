@@ -1,7 +1,7 @@
 import './App.css'
 import { Header } from './components/Header'
 import { Home } from './pages/Home'
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
 import Friends from './pages/Profile-Pages/Friends';
 import About from './pages/Profile-Pages/About';
@@ -14,18 +14,30 @@ import { SignUp } from './pages/SignUp';
 function App () {
   return (
     <>
-   <div className='w-full h-screen'>
+    <div className='w-full h-screen'>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/:section" element={<Profile />} />
-          <Route path="/Profile-Pages/Friends" element={<Friends />} />
-          <Route path="/Profile-Pages/About" element={<About />} />
-          <Route path="/Profile-Pages/Photos" element={<Photos />} />
-          <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-          <Route path="/SavePosts" element={<SavePost />} />
+
+          <Route
+            path="In"
+            element={
+              <>
+                <Header />
+                <Routes>
+                  
+                  <Route path="/Home" element={<Home />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/profile/:section" element={<Profile />} />
+                  <Route path="/Profile-Pages/Friends" element={<Friends />} />
+                  <Route path="/Profile-Pages/About" element={<About />} />
+                  <Route path="/Profile-Pages/Photos" element={<Photos />} />
+                  <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+                  <Route path="/SavePosts" element={<SavePost />} />
+                </Routes>
+              </>
+            }
+          />
         </Routes>
       </div>
     </>
