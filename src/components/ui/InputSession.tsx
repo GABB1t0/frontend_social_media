@@ -9,6 +9,6 @@ interface InputProps {
 
 export const InputSesion: React.FC<InputProps> = ({name, required, type, placeholder}) => {
     return (
-        <input name={name} required={required} type={type} placeholder={placeholder} className="border-2 rounded-sm  mb-3" />
+        <input name={name} required={required} type={type} placeholder={placeholder} className="border-2 rounded-sm  mb-3"  />
     )
 } 

@@ -6,6 +6,7 @@ import { IconButton } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
+import Cookies from 'universal-cookie';
 
 
 
@@ -18,6 +19,17 @@ export const DropdownMenu = () => {
   const handleClick = () => {
     setShowDropdown(!showDropdown)
   }
+
+  //logout
+  const handleLogout = () => {
+    
+    const cookies = new Cookies();
+    cookies.remove('cookie_api_social_media_session');
+    window.location.href = '/';
+    console.log('logout')
+    
+  }
+  
 
   return (
     <aside className='flex items-center justify-center'>
@@ -57,7 +69,7 @@ export const DropdownMenu = () => {
               <SettingsIcon />
               Settings
             </li>
-            <li className='transition hover:text-[#fc6232] cursor-pointer' >
+            <li className='transition hover:text-[#fc6232] cursor-pointer' onClick={handleLogout} >
               <LogoutIcon />
               Logout
             </li>

@@ -10,6 +10,8 @@ import TimeLine from './pages/Profile-Pages/TimeLine';
 import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { EmailVerification } from './components/EmailVerification';
+
 
 
 
@@ -18,7 +20,7 @@ import { SignUp } from './pages/SignUp';
 function App () {
   return (
     <>
-    <div className='w-full h-screen'>
+    <div className='w-full '>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
@@ -27,7 +29,7 @@ function App () {
           path="/"
           element={
             <>
-              <Header />
+              <Header navBlock={false} />
               <Outlet /> {/* Renderiza las rutas secundarias anidadas aquí */}
             </>
           }
@@ -40,7 +42,10 @@ function App () {
             <Route path="Profile-Pages/Photos" element={<Photos />} />
             <Route path="Profile-Pages/TimeLine" element={<TimeLine />} />
             <Route path="SavePosts" element={<SavePost />} />
-        </Route>
+          </Route>
+
+          <Route path="EmailVerification" element={<EmailVerification />} />
+          
       </Routes>
     </div>
     </>
