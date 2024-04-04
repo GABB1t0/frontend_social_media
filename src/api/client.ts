@@ -1,56 +1,53 @@
-//config get and post funticon with axios
-import axios from 'axios';
+import { http} from '../interceptors/axios.interceptor';
 
-const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
-})
+type conf = { 
+  headers?: {}
+}
 
-
+export type bodyRequest = {body?:FormData}
 
 export const client = () =>  {
-  const get = (url: string) => {
-    try{
+  
+  const get = async (endPoint:string, conf:conf = {})=> {
 
-
-    }catch(error){
-
+    const config = {
+      headers : {...conf?.headers},
     }
+    
+    return http.get(endPoint, config)
   }
 
-  const post = async (endPoint:string, body:object = {}, config:object={}) => {
-    try{
-      const res =  await api.post(endPoint, body, {headers: {...config.headers}})
-      return res;
-    }catch(error){
-      return error.response
+  const post = async (endPoint:string, body:bodyRequest, conf:conf = {})=> {
+
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.post(endPoint, body, config)
   }
 
-  const put = (url: string) => {
-    try{
-      
+  const put = async (endPoint:string, body:bodyRequest = {}, conf:conf = {})=> {
 
-    }catch(error){
-
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.put(endPoint, body, config)
   }
 
-  const del = (url: string) => {
-    try{
-      
+  const del = async (endPoint:string, conf:conf = {})=> {
 
-    }catch(error){
-
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.delete(endPoint, config)
   }
 
   return {get, post, put, del}
 
 }
 
-
-
-export default api;
 
 
 

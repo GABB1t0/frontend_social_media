@@ -2,30 +2,26 @@ import { InputSesion } from "../components/ui/InputSession";
 import { client } from "../api/client";
 import Cookies from 'universal-cookie';
 import { Link, useNavigate } from 'react-router-dom';
+import { FC } from "react";
+import { bodyRequest } from "../api/client";
 
-export const Login: React.FC = () => {
-  const endPoint = "auth/login";
+export const Login: FC = () => {
+  const endPoint = "/auth/logi";
   const clients = client();
 
-   const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
     const formData = new FormData(e.currentTarget);
-    /* const data = Object.fromEntries(formData);
-    console.log(data); */
-    const res = await clients.post(endPoint, formData);
+    const res = await clients.post(endPoint, formData as bodyRequest);
     console.log(res)
-    const {token} = res.data;
-
-    const cookie = new Cookies();
+    //const {token} = res.data;
+    //console.log(token)
+    //const cookie = new Cookies();
     //Guardar el token en la cookie
-    cookie.set('cookie_api_social_media_session', token, { maxAge : 10 }); 
-    navigate('/home')
-    
-
+    //cookie.set('cookie_api_social_media_session', token, { maxAge : 10 }); 
+    //navigate('/home')
   }
   
   return (
