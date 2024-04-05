@@ -1,29 +1,27 @@
 import { InputSesion } from "../components/ui/InputSession";
-import { client} from "../api/client";
-import { Link, useNavigate } from 'react-router-dom';
+import { client } from "../api/client";
+import { Link } from 'react-router-dom';
 import { FC } from "react";
-import Cookies from 'universal-cookie';
-import { ROUTES_API as routes} from '../config';
+import { setCookie } from "../utils/cookies";
+import { useRouter } from "../hooks/useRouter";
+import { 
+  SUPPORTED_ROUTES as routesApp, 
+  nameCookieSessionApp, 
+  ROUTES_API as routesApi
+} from '../config';
 
 export const Login: FC = () => {
 
   const clients = client();
-  const navigate = useNavigate();
-
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const route = routes.login()
     const formData = new FormData(e.currentTarget);
-    const res = await clients.post(route, formData);
-
-    console.log(res)
-    //const {token} = res.data;
-    //console.log(token)
-    //const cookie = new Cookies();
-    //Guardar el token en la cookie
-    //cookie.set('cookie_api_social_media_session', token, { maxAge : 10 }); 
-    //navigate('/home')
+    const res = await clients.post(routesApi.login(), formData);
+    const {token} = res.data;
+    setCookie(nameCookieSessionApp,token,1000)
+    useRouter(routesApp.home())
   }
   
   return (

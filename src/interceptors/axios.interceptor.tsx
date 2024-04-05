@@ -20,11 +20,12 @@ instance.interceptors.request.use((request) => {
 instance.interceptors.response.use(
     
     (response) => {
-        return response
+        return response.data 
     },
 
     (error) =>{
-        console.log('error', getValidationError(error.code))
+        alert(getValidationError(error.code))
+        //console.log('error', getValidationError(error.code))
         return Promise.reject(error)
     }   
 )

@@ -11,7 +11,7 @@ import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import { SUPPORTED_ROUTES } from './config';
+import { SUPPORTED_ROUTES, nameCookieSessionApp } from './config';
 import { useEffect, useState } from 'react';
 import { getCookie } from './utils/cookies';
 
@@ -25,7 +25,7 @@ function App () {
 
   useEffect(() => {
     //Recuperamos el token
-    let tkn = getCookie();
+    let tkn = getCookie(nameCookieSessionApp);
     setToken(tkn as StateToken)
   },[])
 

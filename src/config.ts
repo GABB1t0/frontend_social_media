@@ -1,5 +1,7 @@
 import { EndPointApi, RoutesApp } from "./types.d"
 
+export const nameCookieSessionApp = 'cookie_api_social_media_session'
+
 export const ROUTES_API =  {
     userLogged: ():EndPointApi => '/user',
     imagesUser: (user:number):EndPointApi => `/user/view/${user}/images`,
@@ -18,7 +20,7 @@ export const ROUTES_API =  {
     sendRequestFriend: (recipient:number):EndPointApi => `/friends/${recipient}/request`,
     acceptRequestFriend: (friendRequest:number):EndPointApi => `/friends/${friendRequest}/accept`,
     destroyFriendshipRelationship: (user:number):EndPointApi => `/friends/${user}/destroy`,
-    login: ():EndPointApi => 'auth/logins',
+    login: ():EndPointApi => 'auth/login',
     signUp: ():EndPointApi => 'auth/register',
     verificationEmailSend: () => 'auth/email/verification-notification'
 }
