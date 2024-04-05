@@ -1,75 +1,53 @@
-//config get and post funticon with axios
-import axios, {AxiosRequestConfig} from 'axios';
+import { http} from '../interceptors/axios.interceptor';
 
-
-const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
-})
-
-interface Config {
-  headers?: Record<string, string>;
+type conf = { 
+  headers?: {}
 }
 
-
+export type bodyRequest = {body?:FormData}
 
 export const client = () =>  {
-  const get = async(url: string, token:string) => {
-    try{
-      const res = await api.get(url,{headers: { Authorization: `Bearer ${token}` }})
-      return res
+  
+  const get = async (endPoint:string, conf:conf = {})=> {
 
-    }catch(error:any){
-
-      if(error.response.status == 403 ){
-        return "email no verificado"
-      }else{
-        return error.response.status + " " +error.response.data.message;
-      }
-      
+    const config = {
+      headers : {...conf?.headers},
     }
+    
+    return http.get(endPoint, config)
   }
 
-  const post = async (endPoint:string, body:object = {}, config:AxiosRequestConfig={}) => {
-    try{
-      const res =  await api.post(endPoint, body, {headers: {...config.headers}})
-      return res;
-    }catch(error:any){
+  const post = async (endPoint:string, body:bodyRequest, conf:conf = {})=> {
 
-      if(error.response.status === 422){
-        return "Email o contraseña invalida"
-      }else{
-        return error.response.status + " " +error.response.data.message;  
-      }
-      
-      
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.post(endPoint, body, config)
   }
 
-  const put = (url: string) => {
-    try{
-      
+  const put = async (endPoint:string, body:bodyRequest = {}, conf:conf = {})=> {
 
-    }catch(error){
-
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.put(endPoint, body, config)
   }
 
-  const del = (url: string) => {
-    try{
-      
+  const del = async (endPoint:string, conf:conf = {})=> {
 
-    }catch(error){
-
+    const config = {
+      headers : {...conf?.headers},
     }
+
+    return http.delete(endPoint, config)
   }
 
   return {get, post, put, del}
 
 }
 
-
-
-export default api;
 
 
 

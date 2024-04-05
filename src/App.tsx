@@ -10,42 +10,44 @@ import TimeLine from './pages/Profile-Pages/TimeLine';
 import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
-import { EmailVerification } from './components/EmailVerification';
+import ProtectedRoute from './components/ProtectedRoute';
+import { SUPPORTED_ROUTES } from './utils/constants';
+import { useEffect, useState } from 'react';
+import { getCookie } from './utils/cookies';
 
-
-
-
-
+interface StateToken{
+  token?:string
+}
 
 function App () {
+
+  const [token, setToken] = useState<StateToken>();
+
+  useEffect(() => {
+    //Recuperamos el token
+    let tkn = getCookie();
+    setToken(tkn as StateToken)
+  },[])
+
   return (
     <>
     <div className='w-full '>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          {/* {Rutas publicas} */}
+          <Route path={SUPPORTED_ROUTES.login} element={<Login />} />
+          <Route path={SUPPORTED_ROUTES.signUp} element={<SignUp />} />
 
-          <Route
-          path="/"
-          element={
-            <>
-              <Header navBlock={false} />
-              <Outlet /> {/* Renderiza las rutas secundarias anidadas aquí */}
-            </>
-          }
-          >
-            <Route path="Home" element={<Home />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="profile/:section" element={<Profile />} />
-            <Route path="Profile-Pages/Friends" element={<Friends />} />
-            <Route path="Profile-Pages/About" element={<About />} />
-            <Route path="Profile-Pages/Photos" element={<Photos />} />
-            <Route path="Profile-Pages/TimeLine" element={<TimeLine />} />
-            <Route path="SavePosts" element={<SavePost />} />
+          {/* Rutas privadas */}
+          <Route element={<ProtectedRoute isAllowed={token !== undefined}/>} >
+            <Route path={SUPPORTED_ROUTES.home} element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:section" element={<Profile />} />
+            <Route path="/Profile-Pages/Friends" element={<Friends />} />
+            <Route path="/Profile-Pages/About" element={<About />} />
+            <Route path="/Profile-Pages/Photos" element={<Photos />} />
+            <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+            <Route path="/SavePosts" element={<SavePost />} />
           </Route>
-
-          <Route path="EmailVerification" element={<EmailVerification />} />
-          
       </Routes>
     </div>
     </>
@@ -53,3 +55,15 @@ function App () {
 }
 
 export default App
+
+
+// <Route
+// path="/"
+// element={
+// <>
+//   <Header />
+//   <Outlet /> {/* Renderiza las rutas secundarias anidadas aquí */}
+// </>
+// }
+// >
+// </Route>
