@@ -22,6 +22,6 @@ export type EndPointApi = '/user'
     | `/friends/${number}/request`
     | `/friends/${number}/accept`
     | `/friends/${number}/destroy`
-    | 'auth/login'
+    | 'auth/logins'
     | 'auth/register'
     | 'auth/email/verification-notification'

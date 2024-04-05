@@ -1,5 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios"
 import { getCookie } from "../utils/cookies"
+import { getValidationError } from "../utils/get-validation-error";
 
 const instance = axios.create({
     baseURL : 'http://127.0.0.1:8000/api'
@@ -7,7 +8,7 @@ const instance = axios.create({
 
 const updateHeader = (request: InternalAxiosRequestConfig) => {
     const token = getCookie();
-    request.headers.Authorization = `Bearer 12345678`
+    request.headers.Authorization = `Bearer ${token}`
     return request
 }
 
@@ -23,7 +24,7 @@ instance.interceptors.response.use(
     },
 
     (error) =>{
-        console.log('error', error)
+        console.log('error', getValidationError(error.code))
         return Promise.reject(error)
     }   
 )

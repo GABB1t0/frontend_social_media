@@ -18,7 +18,7 @@ export const ROUTES_API =  {
     sendRequestFriend: (recipient:number):EndPointApi => `/friends/${recipient}/request`,
     acceptRequestFriend: (friendRequest:number):EndPointApi => `/friends/${friendRequest}/accept`,
     destroyFriendshipRelationship: (user:number):EndPointApi => `/friends/${user}/destroy`,
-    login: ():EndPointApi => 'auth/login',
+    login: ():EndPointApi => 'auth/logins',
     signUp: ():EndPointApi => 'auth/register',
     verificationEmailSend: () => 'auth/email/verification-notification'
 }
