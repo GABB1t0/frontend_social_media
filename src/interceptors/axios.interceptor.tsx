@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios"
+import axios, { InternalAxiosRequestConfig } from "axios"
 import { getCookie } from "../utils/cookies"
 
 const instance = axios.create({
@@ -8,7 +8,6 @@ const instance = axios.create({
 const updateHeader = (request: InternalAxiosRequestConfig) => {
     const token = getCookie();
     request.headers.Authorization = `Bearer 12345678`
-    request.headers.Accept = 'application/json'
     return request
 }
 

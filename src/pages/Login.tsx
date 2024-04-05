@@ -1,20 +1,22 @@
 import { InputSesion } from "../components/ui/InputSession";
-import { client } from "../api/client";
-import Cookies from 'universal-cookie';
+import { client} from "../api/client";
 import { Link, useNavigate } from 'react-router-dom';
 import { FC } from "react";
-import { bodyRequest } from "../api/client";
+import Cookies from 'universal-cookie';
+import { ROUTES_API as routes} from '../config';
 
 export const Login: FC = () => {
-  const endPoint = "/auth/logi";
-  const clients = client();
 
+  const clients = client();
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const route = routes.login()
     const formData = new FormData(e.currentTarget);
-    const res = await clients.post(endPoint, formData as bodyRequest);
+    const res = await clients.post(route, formData);
+
     console.log(res)
     //const {token} = res.data;
     //console.log(token)

@@ -11,7 +11,7 @@ import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import { SUPPORTED_ROUTES } from './utils/constants';
+import { SUPPORTED_ROUTES } from './config';
 import { useEffect, useState } from 'react';
 import { getCookie } from './utils/cookies';
 
@@ -34,12 +34,12 @@ function App () {
     <div className='w-full h-screen'>
         <Routes>
           {/* {Rutas publicas} */}
-          <Route path={SUPPORTED_ROUTES.login} element={<Login />} />
-          <Route path={SUPPORTED_ROUTES.signUp} element={<SignUp />} />
+          <Route path={SUPPORTED_ROUTES.login()} element={<Login />} />
+          <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
 
           {/* Rutas privadas */}
           <Route element={<ProtectedRoute isAllowed={token !== undefined}/>} >
-            <Route path={SUPPORTED_ROUTES.home} element={<Home />} />
+          <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:section" element={<Profile />} />
             <Route path="/Profile-Pages/Friends" element={<Friends />} />
