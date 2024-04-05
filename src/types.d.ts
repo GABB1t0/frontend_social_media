@@ -10,20 +10,18 @@ export type EndPointApi = '/user'
     | `/user/${number}/update`
     | `/posts/${number}`
     | '/posts/store'
-    | `/posts/${post}/update/`
-    | `/posts/${post}/destroy`
-    | `/post/${id_post}/comments`
-    | `/post/comment/store/${idRecord}/${model}`
-    | `/post/comment/${id_comment}/update`
-    | `/post/comment/${id_comment}/destroy`
-    | `/reaction/store/${user}/${idRecord}/${model}`
-    | `/reaction/${reaction}/destroy`
-    | `/friends/${user}/findFriends`
+    | `/posts/${number}/update/`
+    | `/posts/${number}/destroy`
+    | `/post/${number}/comments`
+    | `/post/comment/${number}/update`
+    | `/post/comment/${number}/destroy`
+    | `/reaction/${number}/destroy`
+    | `/friends/${number}/findFriends`
     | '/friends/friendRequest'
     | '/friends/findUsersToRecommend'
-    | `/friends/${recipient}/request`
-    | `/friends/${friendRequest}/accept`
-    | `/friends/${user}/destroy`
+    | `/friends/${number}/request`
+    | `/friends/${number}/accept`
+    | `/friends/${number}/destroy`
     | 'auth/login'
     | 'auth/register'
     | 'auth/email/verification-notification'
