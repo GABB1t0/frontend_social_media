@@ -1,11 +1,11 @@
 import { SUPPORTED_ROUTES } from "./config"
 
-export type routesApp = '/'
+export type RoutesApp = '/'
     | '/login'
     | '/signUp'
     | '/profile'
 
-export type endPointApi = '/user'
+export type EndPointApi = '/user'
     | `/user/view/${number}/images`
     | `/user/${number}/update`
     | `/posts/${number}`

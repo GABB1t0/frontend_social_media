@@ -1,21 +1,21 @@
 import { http } from '../interceptors/axios.interceptor';
-import { endPointApi } from '../types.d';
+import { EndPointApi } from '../types.d';
 
 export const client = () =>  {
   
-  const get = async (endPoint:endPointApi)=> {
+  const get = async (endPoint:EndPointApi)=> {
     return http.get(endPoint)
   }
 
-  const post = async (endPoint:endPointApi, body?:FormData)=> {
+  const post = async (endPoint:EndPointApi, body?:FormData)=> {
     return http.post(endPoint, body)
   }
 
-  const put = async (endPoint:endPointApi, body?:FormData)=> {
+  const put = async (endPoint:EndPointApi, body?:FormData)=> {
     return http.put(endPoint, body)
   }
 
-  const del = async (endPoint:endPointApi) => {
+  const del = async (endPoint:EndPointApi) => {
     return http.delete(endPoint)
   }
 

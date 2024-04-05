@@ -1,4 +1,4 @@
-import { endPointApi, routesApp } from "./types.d"
+import { EndPointApi, RoutesApp } from "./types.d"
 
 export const ROUTES_API =  {
     userLogged: () => '/user',
@@ -6,7 +6,7 @@ export const ROUTES_API =  {
     updateImageUser: (optionImage:number) => `/user/updateImageUser/${optionImage}`,
     updateFieldUser: (user:number) => `/user/${user}/update`,
     searchPostsUser: (user:number) => `/posts/${user}`,
-    createPost: ():endPointApi => '/posts/store',
+    createPost: ():EndPointApi => '/posts/store',
     updatePost: (post:number) => `/posts/${post}/update/`,
     destroyPost: (post:number) => `/posts/${post}/destroy`,
     searchComment: (id_post:number) => `/post/${id_post}/comments`,
@@ -21,14 +21,14 @@ export const ROUTES_API =  {
     sendRequestFriend: (recipient:number) => `/friends/${recipient}/request`,
     acceptRequestFriend: (friendRequest:number) => `/friends/${friendRequest}/accept`,
     destroyFriendshipRelationship: (user:number) => `/friends/${user}/destroy`,
-    login: ():endPointApi => 'auth/login',
-    signUp: ():endPointApi => 'auth/register',
+    login: ():EndPointApi => 'auth/login',
+    signUp: ():EndPointApi => 'auth/register',
     verificationEmailSend: () => 'auth/email/verification-notification'
 }
 
 export const SUPPORTED_ROUTES = {
-    home: ():routesApp => '/',
-    profile: ():routesApp => '/profile',
-    login: ():routesApp => '/login',
-    signUp: ():routesApp => '/signUp'
+    home: ():RoutesApp => '/',
+    profile: ():RoutesApp => '/profile',
+    login: ():RoutesApp => '/login',
+    signUp: ():RoutesApp => '/signUp'
 }
