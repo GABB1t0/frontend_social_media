@@ -2,15 +2,13 @@ import { InputSesion } from "../components/ui/InputSession";
 import { client } from "../api/client";
 import { Link } from 'react-router-dom';
 import { FC, useEffect, useState } from "react";
-import { getCookie, setCookie } from "../utils/cookies";
+import { setCookie } from "../utils/cookies";
 import { 
-  SUPPORTED_ROUTES, 
   nameCookieSessionApp, 
   ROUTES_API as routesApi
 } from '../config';
 import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
 import { useRouter } from "../hooks/useRouter";
-
 
 export const Login: FC = () => {
 
@@ -50,6 +48,5 @@ export const Login: FC = () => {
         </div>
       </div>
     </>
-    
   );
 }
