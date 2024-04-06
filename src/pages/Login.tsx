@@ -1,28 +1,50 @@
 import { InputSesion } from "../components/ui/InputSession";
 import { client } from "../api/client";
-import Cookies from 'universal-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { FC } from "react";
-import { bodyRequest } from "../api/client";
+import { FC, useState } from "react";
+import { setCookie } from "../utils/cookies";
+import { useRouter } from "../hooks/useRouter";
+import { 
+  SUPPORTED_ROUTES as routesApp, 
+  nameCookieSessionApp, 
+  ROUTES_API as routesApi
+} from '../config';
+
+;
 
 export const Login: FC = () => {
-  const endPoint = "/auth/logi";
-  const clients = client();
+  const [error,setError] = useState(false);
 
+  const clients = client();
   const navigate = useNavigate();
-  
+  const alertClass = error ? "flex text-red-500" : "hidden";
+
+  const message = error ? "Usuario o contraseña incorrectos" : "";
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
-    const res = await clients.post(endPoint, formData as bodyRequest);
+    const res: any = await clients.post(routesApi.login(), formData);
     console.log(res)
+    const {token} = res;
+    setCookie(nameCookieSessionApp,token,1000)
+    /* useRouter(routesApp.home()) */
+
+    const resVerified = await clients.get(routesApi.userLogged())
+    console.log(resVerified)
+
+    if(resVerified. === true){
+      useRouter(routesApp.home())
+    }else if{
+      navigate("/EmailVerification")
+    }
+    //handle error resVerified
+
     
-    //const {token} = res.data;
-    //console.log(token)
-    //const cookie = new Cookies();
-    //Guardar el token en la cookie
-    //cookie.set('cookie_api_social_media_session', token, { maxAge : 10 }); 
-    //navigate('/home')
+    
+
+
   }
   
   return (

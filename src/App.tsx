@@ -1,5 +1,5 @@
 import './App.css'
-import { Header } from './components/Header'
+
 import { Home } from './pages/Home'
 import { Outlet, Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
@@ -11,9 +11,11 @@ import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import { SUPPORTED_ROUTES } from './utils/constants';
+import { SUPPORTED_ROUTES, nameCookieSessionApp } from './config';
 import { useEffect, useState } from 'react';
 import { getCookie } from './utils/cookies';
+import { EmailVerification } from './pages/EmailVerification';
+
 
 interface StateToken{
   token?:string
@@ -25,7 +27,7 @@ function App () {
 
   useEffect(() => {
     //Recuperamos el token
-    let tkn = getCookie();
+    let tkn = getCookie(nameCookieSessionApp);
     setToken(tkn as StateToken)
   },[])
 
@@ -34,12 +36,15 @@ function App () {
     <div className='w-full '>
         <Routes>
           {/* {Rutas publicas} */}
-          <Route path={SUPPORTED_ROUTES.login} element={<Login />} />
-          <Route path={SUPPORTED_ROUTES.signUp} element={<SignUp />} />
+          <Route path={SUPPORTED_ROUTES.login()} element={<Login />} />
+          <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
 
           {/* Rutas privadas */}
           <Route element={<ProtectedRoute isAllowed={token !== undefined}/>} >
-            <Route path={SUPPORTED_ROUTES.home} element={<Home />} />
+          
+          <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
+            
+            
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:section" element={<Profile />} />
             <Route path="/Profile-Pages/Friends" element={<Friends />} />
@@ -47,6 +52,8 @@ function App () {
             <Route path="/Profile-Pages/Photos" element={<Photos />} />
             <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
             <Route path="/SavePosts" element={<SavePost />} />
+            <Route path="/EmailVerification" element={<EmailVerification />} />
+
           </Route>
       </Routes>
     </div>

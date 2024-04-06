@@ -2,12 +2,15 @@ import Cookies from "universal-cookie"
 
 const cookie = new Cookies;
 
-export const getCookie = ():string|undefined  => {
-    const token:string|undefined = cookie.get('cookie_api_social_media_session')
+export const getCookie = (name:string): string|undefined  => {
+    const token:string|undefined = cookie.get(name)
     return token
 }
 
-type PropsToken = {token:string, maxAge?:number}
-export const setCookie = ({token, maxAge = 60}: PropsToken):void => { 
-    cookie.set('cookie_api_social_media_session', token, { maxAge : maxAge }); 
+export const deleteCookie = (name:string): void =>  {
+    cookie.remove(name)
+}
+
+export const setCookie = (nameCookie:string, token:string, maxAge:number) :void => { 
+    cookie.set(nameCookie, token, { maxAge : maxAge }); 
 }
