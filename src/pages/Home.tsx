@@ -16,7 +16,7 @@ export const Home = () => {
           <InfoComponent/>
         </div>
       </aside>
-      <main className="w-full lg:w-[50%] overflow-y-auto">
+      <main className="w-full lg:w-[50%] overflow-y-auto mt-[68px]">
         <Feed/>
       </main>
       <aside className="lg:w-[25%] h-4/5 sticky top-20 right-0  z-40">

@@ -10,8 +10,8 @@ import {
 import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
 import { useRouter } from "../hooks/useRouter";
 
-export const Login: FC = () => {
 
+export const Login: FC = () => {
   const clients = client();
   const [logged, setLogged] = useState<boolean>(false)
   const { redirectToHome } = useRouter()
@@ -24,7 +24,8 @@ export const Login: FC = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const res = await clients.post(routesApi.login(), formData) as LoginAPIResponse;
+    
+    const res: any = await clients.post(routesApi.login(), formData) as LoginAPIResponse;
     const {token} = res.data;
     setCookie(nameCookieSessionApp,token,1000)
     setLogged(true)

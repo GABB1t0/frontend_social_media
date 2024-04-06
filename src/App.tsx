@@ -1,5 +1,5 @@
 import './App.css'
-import { Header } from './components/Header'
+
 import { Home } from './pages/Home'
 import { Outlet, Route, Routes, redirect, useLocation } from 'react-router-dom';
 import Profile from './pages/Profile';
@@ -14,7 +14,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { SUPPORTED_ROUTES, nameCookieSessionApp } from './config';
 import { useEffect, useState } from 'react';
 import { getCookie } from './utils/cookies';
-import { useRouter } from './hooks/useRouter'
+import { EmailVerification } from './pages/EmailVerification';
+import { useRouter } from './hooks/useRouter';
+
 
 interface StateToken{
   token?:string
@@ -76,7 +78,7 @@ function App () {
 
   return (
     <>
-    <div className='w-full h-screen'>
+    <div className='w-full '>
         <Routes>
 
           {/* {Rutas publicas} */}
@@ -84,17 +86,17 @@ function App () {
           <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
 
           {/* Rutas privadas */}
-            <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
-              <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:section" element={<Profile />} />
-              <Route path="/Profile-Pages/Friends" element={<Friends />} />
-              <Route path="/Profile-Pages/About" element={<About />} />
-              <Route path="/Profile-Pages/Photos" element={<Photos />} />
-              <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-              <Route path="/SavePosts" element={<SavePost />} />
-            </Route>
-          
+          <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
+            <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:section" element={<Profile />} />
+            <Route path="/Profile-Pages/Friends" element={<Friends />} />
+            <Route path="/Profile-Pages/About" element={<About />} />
+            <Route path="/Profile-Pages/Photos" element={<Photos />} />
+            <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+            <Route path="/SavePosts" element={<SavePost />} />
+            <Route path="/EmailVerification" element={<EmailVerification />} />
+          </Route>
       </Routes>
     </div>
     </>
