@@ -25,3 +25,4 @@ export type EndPointApi = '/user'
     | 'auth/login'
     | 'auth/register'
     | 'auth/email/verification-notification'
+    

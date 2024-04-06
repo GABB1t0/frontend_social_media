@@ -1,14 +1,16 @@
 import { InputSesion } from "../components/ui/InputSession";
 import { client } from "../api/client";
 import { Link, useNavigate } from 'react-router-dom';
-import { FC, useState } from "react";
-import { setCookie } from "../utils/cookies";
-import { useRouter } from "../hooks/useRouter";
+import { FC, useState, useEffect } from "react";
+import { getCookie, setCookie } from "../utils/cookies";
 import { 
-  SUPPORTED_ROUTES as routesApp, 
+  SUPPORTED_ROUTES, 
   nameCookieSessionApp, 
   ROUTES_API as routesApi
 } from '../config';
+import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
+import { useRouter } from "../hooks/useRouter";
+
 
 ;
 
@@ -21,24 +23,36 @@ export const Login: FC = () => {
 
   const message = error ? "Usuario o contraseña incorrectos" : "";
  
+  const [logged, setLogged] = useState<boolean>(false)
+  const { redirectToHome } = useRouter()
+
+  useEffect(()=>{
+    if(logged) redirectToHome()
+  },[logged])
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    
     const res: any = await clients.post(routesApi.login(), formData);
     console.log(res)
     const {token} = res;
     setCookie(nameCookieSessionApp,token,1000)
+    
     /* useRouter(routesApp.home()) */
 
-    const resVerified = await clients.get(routesApi.userLogged())
-    console.log(resVerified)
+    
 
-    if(resVerified. === true){
-      useRouter(routesApp.home())
-    }else if{
-      navigate("/EmailVerification")
+    try{
+      const resVerified = await clients.get(routesApi.userLogged())
+      console.log(resVerified)
+    }catch(error){  
+      navigate('/EmailVerification')
     }
+    
+
+   
     //handle error resVerified
 
     
@@ -64,6 +78,6 @@ export const Login: FC = () => {
           <p className="text-center">No tienes cuenta? <Link to="/SignUp" className="text-[#fc6232]">Registrate</Link></p>
         </form>
       </div>
-    </div>
-  );
+    </div> 
+  )
 }

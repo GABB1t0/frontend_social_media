@@ -3,7 +3,6 @@ import { getCookie } from "../utils/cookies"
 import { getValidationError } from "../utils/get-validation-error";
 import { nameCookieSessionApp } from "../config";
 
-
 const instance = axios.create({
     baseURL : 'http://127.0.0.1:8000/api'
 })
@@ -22,7 +21,7 @@ instance.interceptors.request.use((request) => {
 instance.interceptors.response.use(
     
     (response) => {
-        return response.data 
+        return response
     },
 
     (error) =>{
