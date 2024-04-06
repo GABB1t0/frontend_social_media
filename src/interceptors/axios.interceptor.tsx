@@ -3,6 +3,8 @@ import { getCookie } from "../utils/cookies"
 import { getValidationError } from "../utils/get-validation-error";
 import { nameCookieSessionApp } from "../config";
 
+
+
 const instance = axios.create({
     baseURL : 'http://127.0.0.1:8000/api'
 })
@@ -25,7 +27,10 @@ instance.interceptors.response.use(
     },
 
     (error) =>{
-        alert(getValidationError(error.code))
+    
+        alert(getValidationError(error.code,error.response.status))
+        if(error.response.status === 403) {
+        }
         //console.log('error', getValidationError(error.code))
         return Promise.reject(error)
     }   

@@ -37,28 +37,22 @@ export const Login: FC = () => {
     
     const res: any = await clients.post(routesApi.login(), formData);
     console.log(res)
-    const {token} = res;
+    const {token} = res.data;
     setCookie(nameCookieSessionApp,token,1000)
+    
+    
     
     /* useRouter(routesApp.home()) */
 
-    
-
-    try{
+   
       const resVerified = await clients.get(routesApi.userLogged())
       console.log(resVerified)
-    }catch(error){  
-      navigate('/EmailVerification')
-    }
-    
+      setLogged(true)
 
+     
+      
    
     //handle error resVerified
-
-    
-    
-
-
   }
   
   return (
