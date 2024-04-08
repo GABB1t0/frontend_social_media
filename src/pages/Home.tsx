@@ -1,17 +1,49 @@
 
+import { useEffect, useState } from "react";
 import { Feed } from "../components/Feed"
 import { Header } from "../components/Header";
 import { ImageProfileHome } from "../components/ImageProfileHome"
 import { InfoComponent } from "../components/infocomponent/InfoComponent"
+import { client } from "../api/client";
+import { 
+  nameCookieSessionApp, 
+  ROUTES_API as routesApi
+} from '../config';
+import { useNavigate } from "react-router-dom";
+
+
+
 
 
 export const Home = () => {
+  const [showHome,setShowHome] = useState(false)
+
+  const clients = client();
+  const navigate = useNavigate();
+
+  
+  //useEffect
+  
+    const verifyUser = async()=>{
+      const resVerified = await clients.get(routesApi.userLogged())
+      setShowHome(true)
+    }
+    verifyUser();
+
+  
+
 
   return (
+    showHome &&
+    
+    <>
+
+    
+    <Header navBlock={false} />
     <div className='container flex justify-center sm:w-11/12 mx-auto my-3 md:gap-6 lg:gap-6 xl:w-4/5'>
       <aside className="lg:w-[25%] sticky top-20 h-4/5 z-[49]">
         <div className="hidden md:flex flex-col gap-4 ">
-          <Header/>
+          
           <ImageProfileHome />
           <InfoComponent/>
         </div>
@@ -27,5 +59,7 @@ export const Home = () => {
       </aside>
       
     </div>
+    </>
+    
   );
 }

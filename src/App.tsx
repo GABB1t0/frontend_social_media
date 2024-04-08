@@ -86,18 +86,17 @@ function App () {
           <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
 
           {/* Rutas privadas */}
-            <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
-              <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:section" element={<Profile />} />
-              <Route path="/Profile-Pages/Friends" element={<Friends />} />
-              <Route path="/Profile-Pages/About" element={<About />} />
-              <Route path="/Profile-Pages/Photos" element={<Photos />} />
-              <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-              <Route path="/SavePosts" element={<SavePost />} />
-              <Route path="/EmailVerification" element={<EmailVerification />} />
-            </Route>
-          
+          <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
+            <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:section" element={<Profile />} />
+            <Route path="/Profile-Pages/Friends" element={<Friends />} />
+            <Route path="/Profile-Pages/About" element={<About />} />
+            <Route path="/Profile-Pages/Photos" element={<Photos />} />
+            <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+            <Route path="/SavePosts" element={<SavePost />} />
+            <Route path="/EmailVerification" element={<EmailVerification />} />
+          </Route>
       </Routes>
     </div>
     </>
