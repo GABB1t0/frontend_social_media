@@ -22,6 +22,7 @@ export const ROUTES_API =  {
     destroyFriendshipRelationship: (user:number):EndPointApi => `/friends/${user}/destroy`,
     login: ():EndPointApi => 'auth/login',
     signUp: ():EndPointApi => 'auth/register',
+    logout: ():EndPointApi => 'auth/logout',
     verificationEmailSend: () => 'auth/email/verification-notification'
 }
 
@@ -29,5 +30,5 @@ export const SUPPORTED_ROUTES = {
     home: ():RoutesApp => '/',
     profile: ():RoutesApp => '/profile',
     login: ():RoutesApp => '/login',
-    signUp: ():RoutesApp => '/signUp'
+    signUp: ():RoutesApp => '/signUp',
 }

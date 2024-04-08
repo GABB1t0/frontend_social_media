@@ -10,7 +10,6 @@ import {
 import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
 import { useRouter } from "../hooks/useRouter";
 
-
 export const Login: FC = () => {
   const clients = client();
   const [logged, setLogged] = useState<boolean>(false)
@@ -32,7 +31,7 @@ export const Login: FC = () => {
   
   return (
     <>
-      <div className="h-full w-full flex justify-center ">
+      <div className="h-screen w-full flex justify-center ">
         <div className="bg-white w-72 h-96 flex flex-col  mx-auto my-auto justify-center gap-4">
           <p className="text-2xl font-bold text-center">Iniciar Sesion</p>
           <form onSubmit={handleSubmit} className="flex flex-col justify-center w-4/5 mx-auto gap-4">

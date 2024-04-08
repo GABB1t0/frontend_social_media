@@ -25,6 +25,7 @@ instance.interceptors.response.use(
     },
 
     (error) =>{
+        console.log(error)
         alert(getValidationError(error.code))
         //console.log('error', getValidationError(error.code))
         return Promise.reject(error)

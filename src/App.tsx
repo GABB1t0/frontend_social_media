@@ -1,7 +1,6 @@
 import './App.css'
-
 import { Home } from './pages/Home'
-import { Outlet, Route, Routes, redirect, useLocation } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import Profile from './pages/Profile';
 import Friends from './pages/Profile-Pages/Friends';
 import About from './pages/Profile-Pages/About';
@@ -11,16 +10,9 @@ import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import { SUPPORTED_ROUTES, nameCookieSessionApp } from './config';
-import { useEffect, useState } from 'react';
-import { getCookie } from './utils/cookies';
+import { SUPPORTED_ROUTES } from './config';
 import { EmailVerification } from './pages/EmailVerification';
-import { useRouter } from './hooks/useRouter';
-
-
-interface StateToken{
-  token?:string
-}
+import { useVerifySesion } from './hooks/useVerifySesion';
 
 /**
  * Descripcion del problema: Cuando se monta el componente APP se realiza la busqueda del token
@@ -37,48 +29,11 @@ interface StateToken{
 
 function App () {
   
-  const [token, setToken] = useState<StateToken>();
-  const [isSearchedToken, setIsSearchedToken ] = useState<boolean>(false)
-  const location = useLocation()
-
-  const { redirectToLogin, redirectToHome } = useRouter()
+  const { token, isSearchedToken } = useVerifySesion() 
   
-  useEffect(() => {
-    //Recuperamos el token
-    let tkn = getCookie(nameCookieSessionApp);
-    
-    setToken(tkn as StateToken)
-    setIsSearchedToken(true)
-
-    if(
-      location.pathname === '/login' && tkn !== undefined ||
-      location.pathname === '/SignUp' && tkn !== undefined){
-      redirectToHome()
-    }
-  },[])
-
-  useEffect(() => {
-    //Recuperamos el token
-    let tkn = getCookie(nameCookieSessionApp);
-    setToken(tkn as StateToken)
-    setIsSearchedToken(true)
-    
-    if(tkn !== undefined && location.pathname === '/login'){
-      redirectToHome()
-    }
-    
-    if(tkn === undefined){
-      if(location.pathname === '/login' || location.pathname === '/SignUp'){
-        setIsSearchedToken(false)
-        return
-      } 
-        return redirectToLogin()
-    } 
-  },[location, useLocation])
-
   return (
     <>
-    <div className='w-full '>
+    <div className='w-full'>
         <Routes>
 
           {/* {Rutas publicas} */}
@@ -86,17 +41,17 @@ function App () {
           <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
 
           {/* Rutas privadas */}
-          <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
-            <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:section" element={<Profile />} />
-            <Route path="/Profile-Pages/Friends" element={<Friends />} />
-            <Route path="/Profile-Pages/About" element={<About />} />
-            <Route path="/Profile-Pages/Photos" element={<Photos />} />
-            <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-            <Route path="/SavePosts" element={<SavePost />} />
-            <Route path="/EmailVerification" element={<EmailVerification />} />
-          </Route>
+            <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
+              <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:section" element={<Profile />} />
+              <Route path="/Profile-Pages/Friends" element={<Friends />} />
+              <Route path="/Profile-Pages/About" element={<About />} />
+              <Route path="/Profile-Pages/Photos" element={<Photos />} />
+              <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
+              <Route path="/SavePosts" element={<SavePost />} />
+              <Route path="/EmailVerification" element={<EmailVerification />} />
+            </Route>
       </Routes>
     </div>
     </>

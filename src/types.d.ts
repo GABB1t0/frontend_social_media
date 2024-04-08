@@ -3,7 +3,15 @@ import { SUPPORTED_ROUTES } from "./config"
 export type RoutesApp = '/'
     | '/login'
     | '/signUp'
-    | '/profile'
+    | '/profile';
+
+export type Home = '/';
+   
+export type Login = '/login';
+
+export type SignUp = '/signUp';
+    
+export type Profile = '/profile';
 
 export type EndPointApi = '/user'
     | `/user/view/${number}/images`
@@ -24,5 +32,6 @@ export type EndPointApi = '/user'
     | `/friends/${number}/destroy`
     | 'auth/login'
     | 'auth/register'
+    | 'auth/logout'
     | 'auth/email/verification-notification'
     

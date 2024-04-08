@@ -6,31 +6,35 @@ import { IconButton } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
-import Cookies from 'universal-cookie';
-
-
+import { client } from '../../api/client'
+import { 
+  nameCookieSessionApp, 
+  ROUTES_API as routesApi
+} from '../../config'
+import { deleteCookie } from '../../utils/cookies'
+import { useRouter } from '../../hooks/useRouter'
 
 export const DropdownMenu = () => {
   const [showDropdown, setShowDropdown] = useState(false)
   let menuClass = 'hidden'
 
   showDropdown ? menuClass = 'bg-white transition duration-150 ease-in-out flex w-52 shadow-lg flex-col gap-2 p-5 absolute top-16 right-2.5 before:absolute before:h-5 before:w-5 before:-top-1 before:right-1 before:bg-white before:rotate-45' : menuClass = 'hidden duration-500 -translate-y-6 ease-out'
+  const clients = client()
+  const { redirectToLogin } = useRouter()
 
   const handleClick = () => {
     setShowDropdown(!showDropdown)
   }
 
   //logout
-  const handleLogout = () => {
-    
-    const cookies = new Cookies();
-    cookies.remove('cookie_api_social_media_session');
-    window.location.href = '/';
-    console.log('logout')
-    
+  const handleLogout = async () => {
+    const res = await clients.post(routesApi.logout())
+    deleteCookie(nameCookieSessionApp)
+    setTimeout(() => {
+      return redirectToLogin()
+    }, 1000);
   }
   
-
   return (
     <aside className='flex items-center justify-center'>
       <div >
