@@ -28,11 +28,11 @@ instance.interceptors.response.use(
 
     (error) =>{
     
-        alert(getValidationError(error.code,error.response.status))
-        if(error.response.status === 403) {
-            
+        getValidationError(error.response.status,error.response.data.message)
+
+        /* if(error.response.status === 403) {
             window.location.href = '/EmailVerification'
-        }
+        } */
         //console.log('error', getValidationError(error.code))
         return Promise.reject(error)
     }   

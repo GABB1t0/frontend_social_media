@@ -26,6 +26,7 @@ export const Login: FC = () => {
     const formData = new FormData(e.currentTarget);
 
     const res = await clients.post(routesApi.login(), formData) as LoginAPIResponse;
+    console.log(res)
     const {token} = res.data;
     setCookie(nameCookieSessionApp,token,1000)
     setLogged(true)
