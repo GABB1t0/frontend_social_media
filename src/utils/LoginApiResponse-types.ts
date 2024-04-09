@@ -10,8 +10,8 @@ export interface LoginAPIResponse {
 export interface Config {
     transitional:      Transitional;
     adapter:           string[];
-    transformRequest:  null[];
-    transformResponse: null[];
+    transformRequest:  undefined;
+    transformResponse: undefined;
     timeout:           number;
     xsrfCookieName:    string;
     xsrfHeaderName:    string;
@@ -44,6 +44,6 @@ export interface Data {
 }
 
 export interface LoginAPIResponseHeaders {
-    "cache-control": string;
-    "content-type":  string;
+    "cache-control"?: string;
+    "content-type"?:  string;
 }

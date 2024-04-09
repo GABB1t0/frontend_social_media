@@ -30,5 +30,5 @@ export const SUPPORTED_ROUTES = {
     home: ():RoutesApp => '/',
     profile: ():RoutesApp => '/profile',
     login: ():RoutesApp => '/login',
-    signUp: ():RoutesApp => '/signUp',
+    signUp: ():RoutesApp => '/SignUp',
 }

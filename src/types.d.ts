@@ -2,7 +2,7 @@ import { SUPPORTED_ROUTES } from "./config"
 
 export type RoutesApp = '/'
     | '/login'
-    | '/signUp'
+    | '/SignUp'
     | '/profile';
 
 export type Home = '/';
