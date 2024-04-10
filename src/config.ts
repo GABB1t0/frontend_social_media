@@ -22,7 +22,7 @@ export const ROUTES_API =  {
     destroyFriendshipRelationship: (user:number):EndPointApi => `/friends/${user}/destroy`,
     login: ():EndPointApi => 'auth/login',
     signUp: ():EndPointApi => 'auth/register',
-    verificationEmailSend: () => 'auth/email/verification-notification'
+    verificationEmailSend: ():EndPointApi => 'auth/email/verification-notification'
 }
 
 export const SUPPORTED_ROUTES = {
