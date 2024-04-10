@@ -1,8 +1,22 @@
+import { ReactEventHandler } from "react";
 import { Header } from "../components/Header";
+import { 
+  ROUTES_API as routesApi
+} from '../config';
+import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
+import { client } from "../api/client";
 
 
 
 export const EmailVerification: React.FC = () => {
+  const clients = client();
+
+  const handleClick = async() => {
+    console.log('click');
+    
+    const response = await clients.post(routesApi.verificationEmailSend()) as LoginAPIResponse;
+
+  }
   return (
     <>
       <Header navBlock={true} />
@@ -14,8 +28,7 @@ export const EmailVerification: React.FC = () => {
         
         <div className="pt-3">
           <p className="opacity-50">Revisa tu correo electronico <b>correo@gmail.com</b> para verificar tu cuenta .</p>
-          <p className="opacity-50">Si no has recibido un correo de verificacion, ingresa en tu carpeta de span o
-           <button className="font-bold hover:cursor-pointer hover:text-gray-400">Reenviar correo</button>.</p>
+          <p className="opacity-50">Si no has recibido un correo de verificacion, ingresa en tu carpeta de span o <a  onClick={handleClick} className="font-bold hover:cursor-pointer hover:text-gray-400">Reenviar correo</a>.</p>
           <br />
           <p className="opacity-50">Gracias por usar nuestro servicio.</p>
           <p className="opacity-50">Saludos, GM</p>

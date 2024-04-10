@@ -1,1 +1,1 @@
-export type TypeWithKey<T> = ( [key: number]: T)
+export type TypeWithKey<T> = {[key: number]: T};
