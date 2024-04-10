@@ -7,7 +7,7 @@ import {
   nameCookieSessionApp, 
   ROUTES_API as routesApi
 } from '../config';
-import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
+import { LoginApiResponse } from "../utils/LoginApiResponse-types";
 import { useRouter } from "../hooks/useRouter";
 
 export const Login: FC = () => {
@@ -23,13 +23,11 @@ export const Login: FC = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const res = await clients.get(routesApi.userLogged()) as LoginAPIResponse;
-
-    console.log(res)
-    // const {token} = res.data;
-    // setCookie(nameCookieSessionApp,token,1000)
-    // setLogged(true)
-    
+    const resApi = await clients.post(routesApi.login(), formData)
+    const { data } = (resApi.data as LoginApiResponse)
+    const { token } = data
+    setCookie(nameCookieSessionApp,token,1000)
+    setLogged(true)
   }
   
   return (

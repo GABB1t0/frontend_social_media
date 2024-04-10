@@ -1,10 +1,11 @@
 import * as z from "zod";
 
-export const LoginApiResponseHeadersSchema = z.object({
+
+export const SingUpApiResponseHeadersSchema = z.object({
     "cache-control": z.string(),
     "content-type": z.string(),
 });
-export type LoginApiResponseHeaders = z.infer<typeof LoginApiResponseHeadersSchema>;
+export type SingUpApiResponseHeaders = z.infer<typeof SingUpApiResponseHeadersSchema>;
 
 export const DataSchema = z.object({
     "message": z.string(),
@@ -21,6 +22,7 @@ export type Transitional = z.infer<typeof TransitionalSchema>;
 
 export const ConfigHeadersSchema = z.object({
     "Accept": z.string(),
+    "Authorization": z.string(),
 });
 export type ConfigHeaders = z.infer<typeof ConfigHeadersSchema>;
 
@@ -47,13 +49,12 @@ export const ConfigSchema = z.object({
 });
 export type Config = z.infer<typeof ConfigSchema>;
 
-export const LoginApiResponseSchema = z.object({
+export const SingUpApiResponseSchema = z.object({
     "data": DataSchema,
     "status": z.number(),
     "statusText": z.string(),
-    "headers": LoginApiResponseHeadersSchema,
+    "headers": SingUpApiResponseHeadersSchema,
     "config": ConfigSchema,
     "request": RequestSchema,
 });
-
-export type LoginApiResponse = z.infer<typeof LoginApiResponseSchema>;
+export type SingUpApiResponse = z.infer<typeof SingUpApiResponseSchema>;

@@ -25,17 +25,7 @@ instance.interceptors.response.use(
     },
 
     (error) =>{
-        console.log(error)
-        // alert(getValidationError(error.code))
-    
-        // alert(getValidationError(error.code,error.response.status))
-        // if(error.response.status === 403) {
-            
-        //     window.location.href = '/EmailVerification'
-        // }
-        // console.log('error', getValidationError(error.code))
-
-        
+        getValidationError(error.response.status,error.response.data.message)
         return Promise.reject(error)
     }   
 )

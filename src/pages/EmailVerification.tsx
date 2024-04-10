@@ -14,13 +14,11 @@ export const EmailVerification: React.FC = () => {
         
         <div className="pt-3">
           <p className="opacity-50">Revisa tu correo electronico <b>correo@gmail.com</b> para verificar tu cuenta .</p>
-          <p className="opacity-50">Si no has recibido un correo de verificacion, ingresa en tu carpeta de span o <a href="" className="font-bold hover:cursor-pointer hover:text-gray-400">Reenviar correo</a>.</p>
+          <p className="opacity-50">Si no has recibido un correo de verificacion, ingresa en tu carpeta de span o
+           <button className="font-bold hover:cursor-pointer hover:text-gray-400">Reenviar correo</button>.</p>
           <br />
           <p className="opacity-50">Gracias por usar nuestro servicio.</p>
           <p className="opacity-50">Saludos, GM</p>
-          
-          
-          
         </div>
         
         
