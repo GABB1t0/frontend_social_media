@@ -7,8 +7,6 @@ import { useParams } from 'react-router-dom';
 import ProfileBanner from '../components/Profile/ProfileBanner';
 import MenuSecundary from '../components/Profile/MenuSecundary';
 
-
-
 const Profile = () => {
 
   let { section } = useParams<{ section?: string }>();
