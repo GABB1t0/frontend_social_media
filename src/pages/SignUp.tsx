@@ -9,6 +9,7 @@ import { SingUpApiResponse  } from "../utils/SignUpApiResponse-types.ts";
 import { setCookie } from "../utils/cookies.ts";
 import { useEffect, useState } from "react";
 import { useRouter } from "../hooks/useRouter";
+import { Data } from "../utils/LoginApiResponse-types.ts";
 
 export const SignUp: React.FC = () => {
   const clients = client();
@@ -23,7 +24,7 @@ export const SignUp: React.FC = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const res = await clients.post(routesApi.signUp(), formData);
-    const { data } = (res.data as SingUpApiResponse)
+    const  data  = res.data as Data
     const { token } = data
     setCookie(nameCookieSessionApp,token,1000)
     setLogged(true)
