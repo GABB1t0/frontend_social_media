@@ -5,12 +5,10 @@ import Profile from './pages/Profile';
 import Friends from './pages/Profile-Pages/Friends';
 import About from './pages/Profile-Pages/About';
 import Photos from './pages/Profile-Pages/Photos';
-import TimeLine from './pages/Profile-Pages/TimeLine';
 import { SavePost } from './pages/SavePosts';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
-import { SUPPORTED_ROUTES } from './config';
 import { EmailVerification } from './pages/EmailVerification';
 import { useVerifySesion } from './hooks/useVerifySesion';
 
@@ -28,34 +26,33 @@ import { useVerifySesion } from './hooks/useVerifySesion';
  */
 
 function App () {
-  
   const { token, isSearchedToken } = useVerifySesion() 
-  
+
   return (
     <>
-    <div className='w-full'>
-        <Routes>
-
-          {/* {Rutas publicas} */}
-          <Route path={SUPPORTED_ROUTES.login()} element={<Login />} />
-          <Route path={SUPPORTED_ROUTES.signUp()} element={<SignUp />} />
-
-          {/* Rutas privadas */}
-            <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
-              <Route path={SUPPORTED_ROUTES.home()} element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:section" element={<Profile />} />
-              <Route path="/Profile-Pages/Friends" element={<Friends />} />
-              <Route path="/Profile-Pages/About" element={<About />} />
-              <Route path="/Profile-Pages/Photos" element={<Photos />} />
-              <Route path="/Profile-Pages/TimeLine" element={<TimeLine />} />
-              <Route path="/SavePosts" element={<SavePost />} />
-              <Route path="/EmailVerification" element={<EmailVerification />} />
-            </Route>
-      </Routes>
-    </div>
+      <div className='w-full'>
+          <Routes>
+            {/* {Rutas publicas} */}
+            <Route path={'/login'} element={<Login />} />
+            <Route path={"/signup"} element={<SignUp />} />
+            <Route path="/SavePosts" element={<SavePost />} />
+            
+            {/* Rutas privadas */}
+              <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
+                
+                <Route path={"/"} element={<Home />} />
+                <Route path="/EmailVerification" element={<EmailVerification />} />
+                <Route path="/:id/" element={<Profile />}>
+                  <Route path="friends" element={<Friends />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="photos" element={<Photos />} />
+                </Route>
+              </Route>
+             <Route path='*' element={<p>No existe esta pagina</p>}/> 
+        </Routes>
+      </div>
     </>
-  )
+  ) 
 }
 
 export default App
