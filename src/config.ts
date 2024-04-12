@@ -1,12 +1,13 @@
-import { EndPointApi, RoutesApp } from "./types.d"
+import { EndPointApi, EndPointApi, RoutesApp } from "./types.d"
 
 export const nameCookieSessionApp = 'cookie_api_social_media_session'
 
 export const ROUTES_API =  {
     userLogged: ():EndPointApi => '/user',
+    findUser: (user:number):EndPointApi => `find/${user}/user`,
     imagesUser: (user:number):EndPointApi => `/user/view/${user}/images`,
     updateFieldUser: (user:number):EndPointApi => `/user/${user}/update`,
-    searchPostsUser: (user:number):EndPointApi => `/posts/${user}`,
+    searchPostsUser: (user:number,page:number):EndPointApi => `/posts/${user}?page=${page}`,
     createPost: ():EndPointApi => '/posts/store',
     updatePost: (post:number):EndPointApi => `/posts/${post}/update/`,
     destroyPost: (post:number):EndPointApi => `/posts/${post}/destroy`,
@@ -22,6 +23,7 @@ export const ROUTES_API =  {
     destroyFriendshipRelationship: (user:number):EndPointApi => `/friends/${user}/destroy`,
     login: ():EndPointApi => 'auth/login',
     signUp: ():EndPointApi => 'auth/register',
+    logout: ():EndPointApi => 'auth/logout',
     verificationEmailSend: ():EndPointApi => 'auth/email/verification-notification'
 }
 
@@ -29,5 +31,5 @@ export const SUPPORTED_ROUTES = {
     home: ():RoutesApp => '/',
     profile: ():RoutesApp => '/profile',
     login: ():RoutesApp => '/login',
-    signUp: ():RoutesApp => '/SignUp',
+    signUp: ():RoutesApp => '/signup',
 }
