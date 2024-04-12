@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { DropdownMenu } from './ui/DropdownMenu'
 import { Link } from 'react-router-dom'
 import { Notification } from './notification/Notification'
+import { SUPPORTED_ROUTES } from '../config'
 
 type Props = {
     navBlock: boolean
@@ -37,7 +38,7 @@ export const Header: React.FC<Props> = ({navBlock}) => {
 
         <ul className={navBlockClass}>
           <li>
-            <Link to='/Home'>
+            <Link to={SUPPORTED_ROUTES.home()}>
               <IconButton color='inherit'>
                   <HomeIcon />
               </IconButton>
