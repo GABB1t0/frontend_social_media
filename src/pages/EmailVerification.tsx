@@ -3,7 +3,7 @@ import { Header } from "../components/Header";
 import { 
   ROUTES_API as routesApi
 } from '../config';
-import { LoginAPIResponse } from "../utils/LoginApiResponse-types";
+import { Data } from "../utils/EmailVerificationResponse-types";
 import { client } from "../api/client";
 
 
@@ -14,7 +14,12 @@ export const EmailVerification: React.FC = () => {
   const handleClick = async() => {
     console.log('click');
     
-    const response = await clients.post(routesApi.verificationEmailSend()) as LoginAPIResponse;
+    const response = await clients.post(routesApi.verificationEmailSend());
+    //response json
+    const data  = response.data as Data    
+    
+
+    
 
   }
   return (
