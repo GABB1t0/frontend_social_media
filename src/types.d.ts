@@ -2,21 +2,14 @@ import { SUPPORTED_ROUTES } from "./config"
 
 export type RoutesApp = '/'
     | '/login'
-    | '/SignUp'
+    | '/signup'
     | '/profile';
 
-export type Home = '/';
-   
-export type Login = '/login';
-
-export type SignUp = '/signUp';
-    
-export type Profile = '/profile';
-
 export type EndPointApi = '/user'
+    | `find/${number}/user`
     | `/user/view/${number}/images`
     | `/user/${number}/update`
-    | `/posts/${number}`
+    | `/posts/${number}?page=${number}`
     | '/posts/store'
     | `/posts/${number}/update/`
     | `/posts/${number}/destroy`
