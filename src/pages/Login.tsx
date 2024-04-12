@@ -7,7 +7,7 @@ import {
   nameCookieSessionApp, 
   ROUTES_API as routesApi
 } from '../config';
-import { Data, LoginApiResponse } from "../utils/LoginApiResponse-types";
+import { Data } from "../utils/LoginApiResponse-types";
 import { useRouter } from "../hooks/useRouter";
 
 export const Login: FC = () => {
