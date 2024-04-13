@@ -1,4 +1,4 @@
-export const InfoComponent = () =>{
+const InfoComponent = () =>{
   return (
     <>
     <div className='bg-white shadow-lg rounded-md h-72 p-4 flex flex-col '>
@@ -31,3 +31,5 @@ export const InfoComponent = () =>{
     </>
   )
 } 
+
+export default InfoComponent;
