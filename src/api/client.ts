@@ -3,20 +3,20 @@ import { EndPointApi } from '../types.d';
 
 export const client = () =>  {
   
-  const get = async (endPoint:EndPointApi)=> {
-    return http.get(endPoint)
+  const get = async (endPoint:EndPointApi, signal?:AbortSignal)=> {
+    return http.get(endPoint, {signal})
   }
 
-  const post = async (endPoint:EndPointApi, body?:FormData)=> {
-    return http.post(endPoint, body)
+  const post = async (endPoint:EndPointApi, body?:FormData, signal?:AbortSignal)=> {
+    return http.post(endPoint, body, {signal})
   }
 
-  const put = async (endPoint:EndPointApi, body?:FormData)=> {
-    return http.put(endPoint, body)
+  const put = async (endPoint:EndPointApi, body?:FormData, signal?:AbortSignal)=> {
+    return http.put(endPoint, body, {signal})
   }
 
-  const del = async (endPoint:EndPointApi) => {
-    return http.delete(endPoint)
+  const del = async (endPoint:EndPointApi, signal?:AbortSignal) => {
+    return http.delete(endPoint, {signal})
   }
 
   return {get, post, put, del}
