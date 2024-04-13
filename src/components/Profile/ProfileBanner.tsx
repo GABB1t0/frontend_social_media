@@ -1,13 +1,34 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { User } from '../../utils/SearchUserProfileApiResponse';
+import { useEffect, useState } from 'react';
+import { client } from '../../api/client';
+import {
+  ROUTES_API as routesApi
+} from '../../config'
 
-const ProfileBanner = () =>{
+type Props = { id:string }
 
-  /* const handleClick = (data) =>{
-        pageSelected(data)
-        
-    } */
+const ProfileBanner = ({id}:Props) => {
+
+  const [dataUser,setDataUser] = useState<User>()
+  const clients = client()
+  
+  useEffect(() => {
+    const abortcontroller = new AbortController()
+    const signal = abortcontroller.signal;
+    clients.get(routesApi.findUser(`${id}`),signal)
+      .then(response => {
+        const user = response.data.data as User
+        setDataUser(user)
+      })
+    
+    return () => {
+      abortcontroller.abort()
+    }
+  },[])
+
   return(
     <>
       <div className="flex flex-col content-center  bg-white shadow-md mb-5" >
@@ -31,7 +52,7 @@ const ProfileBanner = () =>{
               </div>
 
               <div className='w-full flex justify-center  md:w-4/5 md:self-center md:items-center md:justify-between '>
-                <p className='hidden text-4xl font-semibold md:flex'>Gabriel Antuarez</p>
+                <p className='hidden text-4xl font-semibold md:flex'>{dataUser?.name} {dataUser?.lastname}</p>
                 <button className= "bg-red-500 w-2/4 rounded-3xl p-1 text-white  gap-3 flex justify-center hover:scale-110 hover:bg-red-600 md:h-8 md:w-28">
                   <PersonAddIcon/>
                   Add
