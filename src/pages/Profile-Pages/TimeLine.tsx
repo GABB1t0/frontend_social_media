@@ -4,6 +4,7 @@ import { client } from '../../api/client';
 import { ROUTES_API } from '../../config';
 import { Data, Datum, Posts } from '../../utils/SearchPostProfileApiResponse'
 import { EndPointApi } from '../../types';
+import { Post } from '../../components/post/Post';
 
 type Props = { id:string }
 
@@ -53,40 +54,37 @@ const Timeline = ({id}:Props) => {
 
   return(
     <>
-      <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6  '>
-      <aside className="md:w-[40%] sticky top-20 h-4/5 z-[49]">
-        <div className="hidden md:flex flex-col gap-4 ">
-          <Suspense>
-            <InfoComponent/>
-            <InfoComponent/>
-          </Suspense>
-        </div>
-      </aside>
-      <main className="w-full md:w-[60%] overflow-y-auto">
-        <div id='infiniteScroll' style={{width:'100%', height:'600px', border:'1px solid red', overflow:'auto'}}>
-          {<InfiniteScroll
-              dataLength={items.length} //This is important field to render the next data
-              next={() => {
-                if(page?.posts.next_page_url === null) return
-                getList(null,acomodarUrl(page?.posts.next_page_url))
-              }}
-              hasMore={true}
-              scrollableTarget='infiniteScroll'
-              endMessage={<h1>No hay mas posts</h1>}
-              loader={""}
-            >
-              {
-                items.map(item => (
-                  <p key={item.id}>{item.description}</p>
-                ))
-              }
-          </InfiniteScroll>}
-        </div>
-      </main>
-      </div>
+      {
+        <InfiniteScroll
+          dataLength={items.length} //This is important field to render the next data
+          next={() => {
+            if(page?.posts.next_page_url === null) return
+            getList(null,acomodarUrl(page?.posts.next_page_url))
+          }}
+          hasMore={true}
+          scrollableTarget='infiniteScroll'
+          loader={page?.posts.next_page_url !== null ? 'cargando' : ''}
+          >
+            <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6  '>
+              <aside className="md:w-[40%] sticky top-20 h-4/5 z-[49]">
+                <div className="hidden md:flex flex-col gap-4 ">
+                  <Suspense>
+                    <InfoComponent/>
+                    <InfoComponent/>
+                  </Suspense>
+                </div>
+              </aside>
+              <main className="w-full md:w-[60%] overflow-y-auto">
+                {
+                  items.map(item => (
+                    <><Post key={item.id}/><br /></>
+                  ))
+                }
+              </main>
+            </div> 
+          </InfiniteScroll>
+        }
     </>
-    
-    
   )
 };
 
