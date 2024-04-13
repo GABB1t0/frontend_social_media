@@ -11,19 +11,13 @@ interface StateToken{
 
 export const useVerifySesion = () => {
 
-const [token, setToken] = useState<StateToken>();
-  const [isSearchedToken, setIsSearchedToken ] = useState<boolean>(false)
   const location = useLocation()
-
-  const { redirectToLogin, redirectToHome } = useRouter()
+  const { redirectToHome } = useRouter()
   
   useEffect(() => {
     //Recuperamos el token
     let tkn = getCookie(nameCookieSessionApp);
     
-    setToken(tkn as StateToken)
-    setIsSearchedToken(true)
-
     if(
       location.pathname === routes.login() && tkn !== undefined ||
       location.pathname === routes.signUp() && tkn !== undefined){
@@ -31,27 +25,29 @@ const [token, setToken] = useState<StateToken>();
     }
   },[])
 
-  useEffect(() => {
-    //Recuperamos el token
-    let tkn = getCookie(nameCookieSessionApp);
-    setToken(tkn as StateToken)
-    setIsSearchedToken(true)
-    
-    if(tkn !== undefined && location.pathname === routes.login()){
-      redirectToHome()
-    }
-    
-    if(tkn === undefined){
-      if(location.pathname === routes.login() || location.pathname === routes.signUp()){
-        setIsSearchedToken(false)
-        return
-      } 
-        return redirectToLogin()
-    } 
-  },[location, useLocation])
-
-  return {
-    token,
-    isSearchedToken
-  }
+  
 } 
+
+// useEffect(() => {
+//   //Recuperamos el token
+//   let tkn = getCookie(nameCookieSessionApp);
+//   setToken(tkn as StateToken)
+//   setIsSearchedToken(true)
+  
+//   if(tkn !== undefined && location.pathname === routes.login()){
+//     redirectToHome()
+//   }
+  
+//   if(tkn === undefined){
+//     if(location.pathname === routes.login() || location.pathname === routes.signUp()){
+//       setIsSearchedToken(false)
+//       return
+//     } 
+//       return redirectToLogin()
+//   } 
+// },[location, useLocation])
+
+// return {
+//   token,
+//   isSearchedToken
+// }

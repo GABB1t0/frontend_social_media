@@ -26,7 +26,7 @@ import { useVerifySesion } from './hooks/useVerifySesion';
  */
 
 function App () {
-  const { token, isSearchedToken } = useVerifySesion() 
+  useVerifySesion() 
 
   return (
     <>
@@ -38,17 +38,14 @@ function App () {
             <Route path="/SavePosts" element={<SavePost />} />
             
             {/* Rutas privadas */}
-              <Route element={<ProtectedRoute isSearchedToken={isSearchedToken} isAllowed={token !== undefined}/>} >
-                
-                <Route path={"/"} element={<Home />} />
-                <Route path="/EmailVerification" element={<EmailVerification />} />
-                <Route path="/:id/" element={<Profile />}>
-                  <Route path="friends" element={<Friends />} />
-                  <Route path="about" element={<About />} />
-                  <Route path="photos" element={<Photos />} />
-                </Route>
-              </Route>
-             <Route path='*' element={<p>No existe esta pagina</p>}/> 
+            <Route path={"/"} element={<Home />} />
+            <Route path="/EmailVerification" element={<EmailVerification />} />
+            <Route path="/:id/" element={<Profile />}>
+              <Route path="friends" element={<Friends />} />
+              <Route path="about" element={<About />} />
+              <Route path="photos" element={<Photos />} />
+            </Route>
+            <Route path='*' element={<p>No existe esta pagina</p>}/> 
         </Routes>
       </div>
     </>
