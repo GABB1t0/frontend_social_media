@@ -7,25 +7,24 @@ const instance = axios.create({
     baseURL : 'http://127.0.0.1:8000/api'
 })
 
-const updateHeader = (request: InternalAxiosRequestConfig) => {
-    const token = getCookie(nameCookieSessionApp);
-    request.headers.Authorization = `Bearer ${token}`
-    return request
-}
-
 instance.interceptors.request.use((request) => {
     if(request.url?.includes('login') || request.url?.includes('signUp')) return request
-    return updateHeader(request)   
+    
+    const token = getCookie(nameCookieSessionApp); 
+    request.headers.Authorization = `Bearer ${token}`;
+    return request;
+
 })
 
 instance.interceptors.response.use(
-    
     (response) => {
         return response
     },
-
     (error) =>{
-        getValidationError(error.response.status,error.response.data.message)
+        console.log(error.message)
+        if(error?.response?.status){
+            getValidationError(error.response.status,error.response.data.message)
+        }
         return Promise.reject(error)
     }   
 )
