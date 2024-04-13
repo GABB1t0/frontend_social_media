@@ -1,4 +1,4 @@
-import { EndPointApi, EndPointApi, RoutesApp } from "./types.d"
+import { EndPointApi, RoutesApp } from "./types.d"
 
 export const nameCookieSessionApp = 'cookie_api_social_media_session'
 
