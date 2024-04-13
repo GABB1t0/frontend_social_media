@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Feed } from "../components/Feed"
 import { Header } from "../components/Header";
 import { ImageProfileHome } from "../components/ImageProfileHome"
-import { InfoComponent } from "../components/infocomponent/InfoComponent"
+import  InfoComponent  from "../components/infocomponent/InfoComponent"
 import { client } from "../api/client";
 import { 
   nameCookieSessionApp, 
@@ -26,9 +26,6 @@ export const Home = () => {
       setShowHome(true)
     }
     verifyUser();
-
-  
-
 
   return (
     showHome &&
