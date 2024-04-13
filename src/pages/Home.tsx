@@ -22,7 +22,11 @@ export const Home = () => {
   //useEffect
   
     const verifyUser = async()=>{
-      const resVerified = await clients.get(routesApi.userLogged())
+      
+        const resVerified = await clients.get(routesApi.userLogged())
+      
+      
+    
       setShowHome(true)
     }
     verifyUser();
