@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { TypeWithKey } from "../models/type-with-key"
 
 export const getValidationError = (errorStatus:number,errorMessage:string) => {
@@ -5,7 +6,7 @@ export const getValidationError = (errorStatus:number,errorMessage:string) => {
 
     switch (errorStatus) {
         case 401:
-            alert("Usuario no autorizado");
+            result = window.location.href = '/login';
             break;
         case 403:
             result = window.location.href = '/EmailVerification';
