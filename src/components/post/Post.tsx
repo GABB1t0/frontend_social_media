@@ -21,7 +21,6 @@ export const Post = ({ description}:Props) =>{
           <span className='text-gray-500 text-sm'>You and 201 people like this</span>
         </div>
       </article>
-      <br />
     </>
   )
 }

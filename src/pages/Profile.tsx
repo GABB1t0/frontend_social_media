@@ -11,7 +11,6 @@ const Profile = () => {
 
   const { id } = useParams();
   const location = useLocation()
-
   const { searchingToken } = useVerifySesion()
 
   return (

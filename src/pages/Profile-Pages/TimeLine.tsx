@@ -19,8 +19,6 @@ const InfoComponent = lazy(() => import('../../components/infocomponent/InfoComp
 
 const Timeline = ({id}:Props) => {
 
-  const array: Datum[] = []
-
   const [page,setPage] = useState<Data>();
   const [items,setItems] = useState<Datum[]>([]);
   const [hasMore, setHasMore] = useState(true)
@@ -28,11 +26,12 @@ const Timeline = ({id}:Props) => {
 
   const fetchData = ({page, url, signal}:PropsFetchData) => {
     
-    const paginationDefault = 3;
+    const paginationDefault = 2;
+
     let uri = 
       page === null
         ? url
-        : ROUTES_API.searchPostsUser(`${id}`,paginationDefault,page);
+        : ROUTES_API.searchPostsUser(`${id}`, paginationDefault, page);
 
     if(uri === null) return   
 
@@ -76,32 +75,64 @@ const Timeline = ({id}:Props) => {
 
   return(
     <>
-      {
-        <InfiniteScroll
-          dataLength={items.length} //This is important field to render the next data
-          next={ () => { 
-            fetchData({
-              page:null,
-              url:acomodarUrl(page?.posts?.next_page_url)
-            })
-          }}
-          hasMore={hasMore}
-          scrollableTarget='infiniteScroll'
-          loader={
-            <div className='flex justify-end sm:w-11/12 mx-auto my-3 md:gap-6'>
-              <div className="w-full md:w-[58%] overflow-y-auto">
-                <Post description='Cargando'/>
-                <br />
-                <Post description='Cargando'/>
-                <br />
-              </div>
-            </div>
-          }
-          endMessage={<p>Ya se cargaron todos los datos</p>}
-          scrollThreshold="100px"
-          
-          >
-            <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6'>
+     <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6'>
+        <aside className="md:w-[40%] sticky top-20 h-4/5 z-[49]">
+          <div className="hidden md:flex flex-col gap-4 ">
+            <Suspense>
+              <InfoComponent/>
+              <InfoComponent/>
+            </Suspense>
+          </div>
+        </aside>
+        <main className="w-full h-fit md:w-[100%] overflow-y-auto">
+          {
+            <InfiniteScroll
+              dataLength={items.length} //This is important field to render the next data
+              next={ () => { 
+                fetchData({
+                  page:null,
+                  url:acomodarUrl(page?.posts?.next_page_url)
+                })
+              }}
+              hasMore={hasMore}
+              scrollableTarget='infiniteScroll'
+              loader={
+                <div className='flex justify-end border-2 p-2'>
+                  <div className="w-full md:w-[100%] overflow-y-auto">
+                    <Post description='cargando'/>
+                    <Post description='cargando'/>
+                  </div>
+                </div>
+              }
+              endMessage={
+                  <div className='flex justify-end mb-3 p-2'>
+                    <div className="w-full md:w-[100%] overflow-y-auto">
+                      <Post description='Ya se cargaron todos los datos'/>
+                    </div>
+                  </div>
+              }
+              >
+                <div className='h-auto flex flex-col p-2 gap-y-3'>
+                  <CreatePost/>
+                  {
+                    items.map((item) => (
+                      <Post key={item.id} description={`${item.id}`}/>
+                    ))
+                  }
+                </div>
+              </InfiniteScroll>
+            }
+          </main>
+        
+      </div>
+     
+    </>
+  )
+};
+
+export default Timeline;
+
+{/* <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6'>
               <aside className="md:w-[40%] sticky top-0 h-4/5 z-[49]">
                 <div className="hidden md:flex flex-col gap-4 ">
                   <Suspense>
@@ -110,10 +141,9 @@ const Timeline = ({id}:Props) => {
                   </Suspense>
                 </div>
               </aside>
-              <main className="w-full md:w-[60%] overflow-y-auto">
-                  <div>
+              <main className="w-full h-fit md:w-[60%] overflow-y-auto border-2 border-gray-300 ">
+                  <div className='h-auto flex flex-col p-2 gap-y-3 border-4 border-blue-200'>
                     <CreatePost/>
-                    <br />
                     {
                       items.map((item) => (
                         <Post key={item.id} description={`${item.id}`}/>
@@ -121,11 +151,4 @@ const Timeline = ({id}:Props) => {
                     }
                   </div>
               </main>
-            </div> 
-          </InfiniteScroll>
-        }
-    </>
-  )
-};
-
-export default Timeline;
+            </div>  */}
