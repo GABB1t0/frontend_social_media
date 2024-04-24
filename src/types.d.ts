@@ -1,4 +1,8 @@
-import { SUPPORTED_ROUTES } from "./config"
+import { SUPPORTED_ROUTES, statusRequestApi } from "./config"
+
+type statusRequestApiTypes = keyof typeof statusRequestApi
+
+type routesProfile = 'about'|'photos'|'friends'|'';
 
 export type RoutesApp = '/'
     | '/login'
@@ -17,6 +21,7 @@ export type EndPointApi = '/user'
     | `/post/comment/${string}/update`
     | `/post/comment/${string}/destroy`
     | `/reaction/${string}/destroy`
+    | `/friends/${string}/verifyFriendshipRelationship`
     | `/friends/${string}/findFriends`
     | '/friends/friendRequest'
     | '/friends/findUsersToRecommend'
