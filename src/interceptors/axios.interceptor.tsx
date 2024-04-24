@@ -1,4 +1,4 @@
-import axios, { InternalAxiosRequestConfig } from "axios"
+import axios from "axios"
 import { getCookie } from "../utils/cookies"
 import { getValidationError } from "../utils/get-validation-error";
 import { nameCookieSessionApp } from "../config";
@@ -21,11 +21,8 @@ instance.interceptors.response.use(
         return response
     },
     (error) =>{
-        console.log(error.message)
-        if(error?.response?.status){
-            getValidationError(error.response.status,error.response.data.message)
-        }
-        return Promise.reject(error)
+        const customError = getValidationError(error)
+        return Promise.reject(customError)
     }   
 )
 export const http = instance;
