@@ -4,7 +4,7 @@ import { EndPointApi } from '../types.d';
 export const client = () =>  {
   
   const get = async (endPoint:EndPointApi, signal?:AbortSignal)=> {
-    return http.get(endPoint, {signal})
+    return http.get(endPoint, {signal, timeout:10000})
   }
 
   const post = async (endPoint:EndPointApi, body?:FormData, signal?:AbortSignal)=> {
