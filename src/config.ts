@@ -15,6 +15,7 @@ export const ROUTES_API =  {
     updateComment: (id_comment:string):EndPointApi => `/post/comment/${id_comment}/update`,
     destroyComment: (id_comment:string):EndPointApi => `/post/comment/${id_comment}/destroy`,
     destroyReaction: (reaction:string):EndPointApi => `/reaction/${reaction}/destroy`,
+    verifyFriendshipRelationship: (user:string):EndPointApi => `/friends/${user}/verifyFriendshipRelationship`,
     findFriends: (user:string):EndPointApi => `/friends/${user}/findFriends`,
     findAllMyRequestFriend: ():EndPointApi => '/friends/friendRequest',
     findUsersToRecommend: ():EndPointApi => '/friends/findUsersToRecommend',
@@ -32,4 +33,11 @@ export const SUPPORTED_ROUTES = {
     profile: ():RoutesApp => '/profile',
     login: ():RoutesApp => '/login',
     signUp: ():RoutesApp => '/signup',
+}
+
+export const statusRequestApi = {
+    idle : 'idle',
+    pending: 'pending',
+    succeeded: 'succeeded',
+    failed: 'failed'
 }
