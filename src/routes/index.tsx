@@ -3,7 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import WrapperSuspense from "../components/WrapperSuspense";
 import NotFound from "../components/errors/NotFound";
 import { client } from "../api/client";
-import { ROUTES_API } from "../config";
+import { ROUTES_API, nameCookieSessionApp } from "../config";
+import { getCookie } from "../utils/cookies";
 
 const Login = lazy(() => import('../pages/Login'))
 const SignUp = lazy(() => import('../pages/SignUp'))
@@ -15,11 +16,12 @@ const EmailVerification = lazy(() => import('../pages/EmailVerification'));
 const Home = lazy(() => import('../pages/Home'));
 
 const apiClient = client();
+let abort = null;
 
 export const routes = createBrowserRouter([
     {
         path:'/',
-        element: <WrapperSuspense/>,
+        element: <WrapperSuspense abort={abort}/>,
         errorElement:<NotFound/>,
         children:[
             {
@@ -35,7 +37,11 @@ export const routes = createBrowserRouter([
                 element: <Home/>,
                 loader: async() => {
 
-                    let data = await apiClient.get(ROUTES_API.userLogged())
+                    abort = new AbortController();
+                    const tkn = getCookie(nameCookieSessionApp);
+                    if(tkn === undefined) window.location.href = './login';
+
+                    let data = await apiClient.get(ROUTES_API.userLogged(),abort.signal)
                     .then(response => response.data)
                     .catch( error => error)
 
@@ -45,13 +51,14 @@ export const routes = createBrowserRouter([
 
                     if(data.status == 401){
                         window.location.href = '/login';
+                        return null;
                     }
 
                     if(data.status == 500){
                         throw { statusText: "Error server",  status: 500 };
                     }
 
-                    return data ;                   
+                    return data;                   
                 },
             },
             {
@@ -63,7 +70,11 @@ export const routes = createBrowserRouter([
                 element:<Profile/>,
                 loader: async ({params}) => {
 
-                    let data = await apiClient.get(ROUTES_API.findUser(`${params.id}`))
+                    const tkn = getCookie(nameCookieSessionApp);
+                    if(tkn === undefined) window.location.href = './login';
+
+                    abort = new AbortController();
+                    let data = await apiClient.get(ROUTES_API.findUser(`${params.id}`), abort.signal)
                     .then(response => response.data)
                     .catch( error => error)
 
