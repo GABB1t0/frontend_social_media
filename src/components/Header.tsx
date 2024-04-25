@@ -13,7 +13,7 @@ type Props = {
     navBlock: boolean
 }
 
-export const Header: React.FC<Props> = ({navBlock}) => {
+const Header: React.FC<Props> = ({navBlock}) => {
 
   const [search, setSearch] = useState(false)
 
@@ -90,4 +90,4 @@ export const Header: React.FC<Props> = ({navBlock}) => {
   )
 }
 
-
+export default Header;
