@@ -18,7 +18,6 @@ export const useVerifySesion = () => {
     if(
       location.pathname === routes.login() && tkn !== undefined ||
       location.pathname === routes.signUp() && tkn !== undefined){
-      setSearchingToken(true)
       return redirectToHome()
     }
 
