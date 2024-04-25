@@ -49,7 +49,7 @@ export const DropdownMenu = () => {
           <hr />
           <ul className='flex flex-col gap-4 my-3'>
             <li className='transition hover:text-[#fc6232] cursor-pointer' >
-              <Link to='/1'>
+              <Link to='/profile/1'>
                 <PersonIcon/>
                 Profile
               </Link>
