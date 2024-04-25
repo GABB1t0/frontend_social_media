@@ -1,9 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userSlice from './slices/userSlice'
+import userSlice, { UserState} from './slices/userSlice'
 import sessionSlice from './slices/sessionSlice'
-import userProfileSlice from './slices/userProfileSlice'
+import userProfileSlice, {UserStateProfile} from './slices/userProfileSlice'
 
+type AppState = {
+  user: UserState,
+  userProfile:UserStateProfile
+}
 
+export type RootState = AppState;
 
 export const store = configureStore({
   reducer: combineReducers({
@@ -14,6 +19,6 @@ export const store = configureStore({
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+// export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
