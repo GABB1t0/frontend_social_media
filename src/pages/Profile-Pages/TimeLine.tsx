@@ -6,6 +6,8 @@ import { Data, Datum, Posts } from '../../utils/SearchPostProfileApiResponse'
 import { EndPointApi } from '../../types';
 import { Post } from '../../components/post/Post';
 import { CreatePost } from '../../components/post/CreatePost';
+import useReduxHook from '../../hooks/useReduxHook';
+import { RootState } from '../../app/store';
 
 type Props = { id:string }
 
@@ -17,11 +19,15 @@ type PropsFetchData = {
 
 const InfoComponent = lazy(() => import('../../components/infocomponent/InfoComponent'))
 
-const Timeline = ({id}:Props) => {
+const Timeline = () => {
 
   const [page,setPage] = useState<Data>();
   const [items,setItems] = useState<Datum[]>([]);
   const [hasMore, setHasMore] = useState(true)
+  const { myUseSelector } = useReduxHook();
+  const userProfile = myUseSelector((state:RootState) => state?.userProfile);
+  
+  console.log(userProfile)
   const clients = client()
 
   const fetchData = ({page, url, signal}:PropsFetchData) => {
@@ -31,7 +37,7 @@ const Timeline = ({id}:Props) => {
     let uri = 
       page === null
         ? url
-        : ROUTES_API.searchPostsUser(`${id}`, paginationDefault, page);
+        : ROUTES_API.searchPostsUser(`${userProfile?.entities?.id}`, paginationDefault, page);
 
     if(uri === null) return   
 
@@ -41,7 +47,6 @@ const Timeline = ({id}:Props) => {
     .then(response  => {
       const data = response.data as Data
       const posts = (response.data.posts) as Posts
-      console.log(data)
       if(posts.data.length === 0){ 
         setHasMore(false)
       }else{
@@ -75,16 +80,19 @@ const Timeline = ({id}:Props) => {
 
   return(
     <>
-     <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6'>
-        <aside className="md:w-[40%] sticky top-20 h-4/5 z-[49]">
-          <div className="hidden md:flex flex-col gap-4 ">
+    
+    {console.log('Me rendecire timeline')}
+
+     <div className='flex justify-center flex-wrap sm:w-11/12 mx-auto my-3 md:gap-6'>
+        <aside className="w-[95%] md:sticky md:w-[40%] top-20 lg:w-[35%] xl:w-[30%]  h-4/5 z-[49]">
+          <div className="w-full flex flex-col gap-4 ">
             <Suspense>
               <InfoComponent/>
               <InfoComponent/>
             </Suspense>
           </div>
         </aside>
-        <main className="w-full h-fit md:w-[100%] overflow-y-auto">
+        <main className="w-[95%] h-fit md:w-[55%] lg:w-[60%] xl:w-[45%] overflow-y-auto">
           {
             <InfiniteScroll
               dataLength={items.length} //This is important field to render the next data
@@ -131,24 +139,3 @@ const Timeline = ({id}:Props) => {
 };
 
 export default Timeline;
-
-{/* <div className='flex sm:w-11/12 mx-auto my-3 md:gap-6'>
-              <aside className="md:w-[40%] sticky top-0 h-4/5 z-[49]">
-                <div className="hidden md:flex flex-col gap-4 ">
-                  <Suspense>
-                    <InfoComponent/>
-                    <InfoComponent/>
-                  </Suspense>
-                </div>
-              </aside>
-              <main className="w-full h-fit md:w-[60%] overflow-y-auto border-2 border-gray-300 ">
-                  <div className='h-auto flex flex-col p-2 gap-y-3 border-4 border-blue-200'>
-                    <CreatePost/>
-                    {
-                      items.map((item) => (
-                        <Post key={item.id} description={`${item.id}`}/>
-                      ))
-                    }
-                  </div>
-              </main>
-            </div>  */}
