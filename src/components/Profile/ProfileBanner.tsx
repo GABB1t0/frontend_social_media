@@ -1,83 +1,66 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { User } from '../../utils/SearchUserProfileApiResponse';
-import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import { lazy, useEffect, useState } from 'react';
 import { client } from '../../api/client';
 import {
   ROUTES_API as routesApi
 } from '../../config'
+import useReduxHook from '../../hooks/useReduxHook';
+import NavigationProfile from './NavigationProfile';
+import { routesProfile } from '../../types';
+import ImageProfile from './ImageProfile';
+import ImageCover from './ImageCover';
 
-type Props = { id:string }
+const ButtonAddFriend = lazy(() => import('./ButtonAddFriend'));
+const ButtonShowFriend = lazy(() => import('./ButtonShowFriend'));
 
-const ProfileBanner = ({id}:Props) => {
+const ProfileBanner = () => { 
 
-  const [dataUser,setDataUser] = useState<User>()
-  const clients = client()
+  const [isFriend, setIsFriend] = useState<boolean|undefined>(undefined);
+  const location = useLocation();
+  const { myUseSelector } = useReduxHook();
+  const userProfile = myUseSelector(state => state?.userProfile);
+  const userLogged = myUseSelector(state => state?.user)
+  const apiClient = client();
   
   useEffect(() => {
     const abortcontroller = new AbortController()
     const signal = abortcontroller.signal;
-    clients.get(routesApi.findUser(`${id}`),signal)
+
+    apiClient.get(routesApi.verifyFriendshipRelationship(`${userProfile?.entities?.id}`),signal)
       .then(response => {
-        const user = response.data.data as User
-        setDataUser(user)
+        const data = response.data.length > 0;
+        setIsFriend(data)
       })
     
     return () => {
       abortcontroller.abort()
-    }
+    } 
   },[])
 
   return(
     <>
       <div className="flex flex-col content-center  bg-white shadow-md mb-5" >
-        <div>
-          <img 
-            src="https://live.staticflickr.com/2857/10509570106_5a0699853b_c.jpg" 
-            alt="cover Photo" 
-            className="rounded-none	aspect-[16/9] md:w-full md:aspect-[16/6]"
-          />
-        </div>
-
+        <ImageCover/>
         <div className="mx-auto flex relative h-44 justify-center md:justify-start md:w-11/12  ">
-          <div className="flex flex-col self-end pb-5 gap-2 md:w-full	">
-            <div className='flex justify-center md:justify-center md:w-full md:gap-3'>
-              <div className= "absolute -top-16 inset-x-0 flex items-center justify-center sm:-top-20 md:static">
-                <img 
-                  src='/src/assets/img/blank-profile-picture.jpg' 
-                  alt="Profile Photo" 
-                  className=" size-32 rounded-full sm:size-36 md:size-40" 
-                />
-              </div>
-
-              <div className='w-full flex justify-center  md:w-4/5 md:self-center md:items-center md:justify-between '>
-                <p className='hidden text-4xl font-semibold md:flex'>{dataUser?.name} {dataUser?.lastname}</p>
-                <button className= "bg-red-500 w-2/4 rounded-3xl p-1 text-white  gap-3 flex justify-center hover:scale-110 hover:bg-red-600 md:h-8 md:w-28">
-                  <PersonAddIcon/>
-                  Add
-                </button>
+          <div className="flex flex-col justify-center self-end pb-5 gap-2 md:w-full	">
+            <div className='flex justify-center md:w-full md:gap-3'>
+              <ImageProfile/>
+              <div className='w-full flex justify-center flex-wrap gap-1 md:w-4/5 md:self-center md:items-center md:justify-between'>
+                <p className='sm:text-sm font-semibold md:flex md:text-2xl'>{userProfile?.entities?.name} {userProfile?.entities?.lastname}</p>
+                {
+                  userLogged?.entities?.id === userProfile?.entities?.id
+                    ? ''
+                    : isFriend === undefined
+                      ? ''
+                      : isFriend
+                        ? <ButtonShowFriend/>
+                        : <ButtonAddFriend/>
+                }
               </div>
             </div>
-
-            <ul className='flex flex-row gap-2 text-sm md:self-center md:gap-8 md:text-lg'>
-              <li className='font-semibold  transition hover:text-red-400' >
-                <Link to=''>Timeline</Link>
-              </li>
-                            
-              <li className='font-semibold  transition hover:text-red-400' >
-                <Link to='about'>About</Link>
-              </li>
-
-              <li className='font-semibold  transition hover:text-red-400' >
-                <Link to='photos'>Photos</Link>
-              </li>
-
-              <li className='font-semibold  transition hover:text-red-400' >
-                <Link to='friends'>Friends</Link>
-              </li>  
-            </ul>
-
+            <NavigationProfile location={location.pathname as routesProfile}/>
           </div>    
         </div>
       </div>
