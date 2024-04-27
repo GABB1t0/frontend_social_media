@@ -1,4 +1,3 @@
-import { ReactEventHandler } from "react";
 import { Header } from "../components/Header";
 import { 
   ROUTES_API as routesApi
@@ -6,9 +5,7 @@ import {
 import { Data } from "../utils/EmailVerificationResponse-types";
 import { client } from "../api/client";
 
-
-
-export const EmailVerification: React.FC = () => {
+const EmailVerification: React.FC = () => {
   const clients = client();
 
   const handleClick = async() => {
@@ -17,10 +14,8 @@ export const EmailVerification: React.FC = () => {
     const response = await clients.post(routesApi.verificationEmailSend());
     //response json
     const data  = response.data as Data    
+    console.log(data)
     
-
-    
-
   }
   return (
     <>
@@ -47,3 +42,5 @@ export const EmailVerification: React.FC = () => {
     
   );
 }
+
+export default EmailVerification;

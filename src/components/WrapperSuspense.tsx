@@ -3,16 +3,10 @@ import { Outlet, useNavigation } from "react-router-dom"
 import LoaderPages from "./LoaderPages";
 import LoaderCss from './LoaderPages.module.css';
 
-type PropsOptional = { abort:AbortController|null}
 
-const WrapperSuspense = ({abort}:PropsOptional) => {
+const WrapperSuspense = () => {
 
   const navigation = useNavigation();
-  useEffect(() => {
-    return () => {
-      abort?.abort();
-    }
-  })
 
   return (
     <div className='w-full'>

@@ -59,15 +59,7 @@ const About = () =>{
           <p>{val.map(val=>val)}</p>
                     
         </article>
-      </section>
-
-      <SectionSeparator section="Photos"/>
-      <Photos/>
-
-      <SectionSeparator section="Friends"/>
-      <Friends/>
-
-        
+      </section>   
     </>
   );
 };

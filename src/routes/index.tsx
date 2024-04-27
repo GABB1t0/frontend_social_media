@@ -16,12 +16,11 @@ const EmailVerification = lazy(() => import('../pages/EmailVerification'));
 const Home = lazy(() => import('../pages/Home'));
 
 const apiClient = client();
-let abort = null;
 
 export const routes = createBrowserRouter([
     {
         path:'/',
-        element: <WrapperSuspense abort={abort}/>,
+        element: <WrapperSuspense />,
         errorElement:<NotFound/>,
         children:[
             {
@@ -34,32 +33,13 @@ export const routes = createBrowserRouter([
             },
             {
                 index:true,
-                element: <Home/>,
                 loader: async() => {
-
-                    abort = new AbortController();
+                    console.log('pidieron el Home')
                     const tkn = getCookie(nameCookieSessionApp);
-                    if(tkn === undefined) window.location.href = './login';
-
-                    let data = await apiClient.get(ROUTES_API.userLogged(),abort.signal)
-                    .then(response => response.data)
-                    .catch( error => error)
-
-                    if(data.status == 404){
-                        throw {statusText: "Not Found",  status: 404 };
-                    }
-
-                    if(data.status == 401){
-                        window.location.href = '/login';
-                        return null;
-                    }
-
-                    if(data.status == 500){
-                        throw { statusText: "Error server",  status: 500 };
-                    }
-
-                    return data;                   
+                    if(tkn === undefined) window.location.href = '/login';
+                    return true;                   
                 },
+                element: <Home/>,
             },
             {
                 path:'/EmailVerification', 
@@ -70,11 +50,11 @@ export const routes = createBrowserRouter([
                 element:<Profile/>,
                 loader: async ({params}) => {
 
+                    console.log('pidieron el Profile')
                     const tkn = getCookie(nameCookieSessionApp);
-                    if(tkn === undefined) window.location.href = './login';
+                    if(tkn === undefined) window.location.href = '/login';
 
-                    abort = new AbortController();
-                    let data = await apiClient.get(ROUTES_API.findUser(`${params.id}`), abort.signal)
+                    let data = await apiClient.get(ROUTES_API.findUser(`${params.id}`))
                     .then(response => response.data)
                     .catch( error => error)
 

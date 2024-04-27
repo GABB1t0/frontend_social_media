@@ -10,6 +10,7 @@ const Photos = () =>{
 
   return(
     <>
+    {console.log('Photos')}
       {cols !== 0 && (
         <section className={stylesPhoto.photoSection_container}>
           <ListImage cols={cols} /> 

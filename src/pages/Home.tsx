@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Feed } from "../components/Feed"
 import { ImageProfileHome } from "../components/ImageProfileHome"
 import  InfoComponent  from "../components/infocomponent/InfoComponent"
@@ -9,7 +9,9 @@ const Header = lazy(() => import('../components/Header'));
 const Home = () => {
   
   const dataUserLogged = useLoaderData();
-  console.log(dataUserLogged)
+  useEffect(() => {
+    console.log(dataUserLogged)
+  },[])
 
   // const clients = client();
   // const navigate = useNavigate();
@@ -44,6 +46,7 @@ const Home = () => {
             </aside>
           </div>
       </Suspense>
+
     </>
   );
 }

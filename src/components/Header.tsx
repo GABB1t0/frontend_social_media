@@ -44,8 +44,6 @@ const Header: React.FC<Props> = ({navBlock}) => {
               </IconButton>
             </Link>
           </li>
-
-            
           <li>
             <Notification/>
           </li>

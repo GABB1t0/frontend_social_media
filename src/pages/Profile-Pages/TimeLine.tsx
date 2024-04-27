@@ -8,6 +8,7 @@ import { Post } from '../../components/post/Post';
 import { CreatePost } from '../../components/post/CreatePost';
 import useReduxHook from '../../hooks/useReduxHook';
 import { RootState } from '../../app/store';
+import { actionsForErrors } from '../../utils/actionsForErrors';
 
 type Props = { id:string }
 
@@ -54,6 +55,9 @@ const Timeline = () => {
         setItems([...items, ...newDataPosts])
         setPage(data)
       }
+    }).catch(error => {
+      const {status, statusText} = error;
+      actionsForErrors({status: status, statusText:statusText})
     });
   }
 
